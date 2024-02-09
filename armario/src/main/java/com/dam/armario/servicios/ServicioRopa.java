@@ -1,5 +1,5 @@
 package com.dam.armario.servicios;
 
-public class Servicio1 {
+public class ServicioRopa {
     
 }
