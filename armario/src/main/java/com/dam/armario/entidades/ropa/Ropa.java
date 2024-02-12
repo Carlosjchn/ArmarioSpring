@@ -1,10 +1,10 @@
 package com.dam.armario.entidades.ropa;
 
-public class Ropa {
-	private String color;
-	private String talla;
-	private String marca;
-	private String material;
+public abstract class Ropa {
+	protected String color;
+	protected String talla;
+	protected String marca;
+	protected String material;
 	
 	//CONSTRUCTORS
 	public Ropa() {

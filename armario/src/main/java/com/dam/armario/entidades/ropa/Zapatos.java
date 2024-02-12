@@ -1,6 +1,6 @@
 package com.dam.armario.entidades.ropa;
 
-public class Zapatos {
+public class Zapatos extends Ropa{
 	private String tipo; //con capucha, sin capucha, cremallera...
 	private String estilo;
 	

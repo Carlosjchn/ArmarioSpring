@@ -1,6 +1,6 @@
 package com.dam.armario.entidades.ropa;
 
-public class Camiseta {
+public class Camiseta extends Ropa{
 	private String tipo;//manga larga, corta, cuello corto
 	private String estilo;
 
