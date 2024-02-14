@@ -12,7 +12,7 @@ public class ServicioUsuario {
         listaUsers.altaUsuario(usuario);   
     }
     public void eliminarUsuario(String nombre, String contraseña){
-
+        
     }
     public void modificarUsuario(String nombre){
         
