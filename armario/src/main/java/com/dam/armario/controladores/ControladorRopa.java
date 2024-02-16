@@ -1,5 +1,5 @@
 package com.dam.armario.controladores;
 
-public class ControladorMain {
-
+public class ControladorRopa {
+    
 }

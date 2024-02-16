@@ -5,9 +5,9 @@ import com.dam.armario.servicios.*;
 import java.util.*;
 public class ControladorUsuario {
     Scanner sc = new Scanner(System.in);
+    ServicioUsuario usuario = new ServicioUsuario();
 
     public void menuUser(){
-        ServicioUsuario usuario=new ServicioUsuario();
         System.out.println("\t 1. Registrarse \n\t 2. Iniciar Sesión \n\t 3. Recuperar cotraseña \n\t 4. Salir ");
         String opcion;
         do{
@@ -25,4 +25,11 @@ public class ControladorUsuario {
         }
     }while(Integer.parseInt(opcion)<1 && Integer.parseInt(opcion)>4);
     }
+
+    public String obtenerDatos(Scanner sc){
+        System.out.println("Introduce tu nombre: ");
+        
+        return null;
+    }
 }
+

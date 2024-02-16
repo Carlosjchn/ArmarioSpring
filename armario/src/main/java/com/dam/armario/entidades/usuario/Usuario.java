@@ -10,7 +10,7 @@ public class Usuario {
     private String email;
     private String password;
     private String recuperar;
-    private boolean Logueado;
+    private boolean Logueado=false;
     
     ArrayList<Ropa> RopaBD = new ArrayList<Ropa>();
     ArrayList<Outfits> OutfitsBD = new ArrayList<Outfits>();
@@ -62,7 +62,7 @@ public class Usuario {
     }
 
     public void setLogueado(boolean logueado) {
-        Logueado = logueado;
+        this.Logueado = logueado;
     }
     public ArrayList<Ropa> getRopaBD() {
         return RopaBD;

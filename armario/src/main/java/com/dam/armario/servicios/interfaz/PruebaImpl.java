@@ -5,7 +5,11 @@ public class PruebaImpl implements Interfaz2{
 
     }
 
-    public void alta() {
+    public void modificarUsuario() {
+        
+    }
+
+    public void alta(){
         
     }
 }   
