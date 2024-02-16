@@ -1,4 +1,4 @@
-package com.dam.armario.controladores;
+ package com.dam.armario.controladores;
 
 public class ControladorRopa {
     

@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 import com.dam.armario.entidades.usuario.*;
 
-import com.dam.armario.entidades.usuario.*;
 import com.dam.armario.repositorio.*;
 
 public class ServicioUsuario {

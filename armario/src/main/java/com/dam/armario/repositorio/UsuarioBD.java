@@ -2,10 +2,8 @@ package com.dam.armario.repositorio;
 
 import java.util.ArrayList;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
-
 import com.dam.armario.entidades.usuario.*;
-
+// ENVIAR LA BASE DE DATOS A CADA CONTROLADOR PARA QUE SE ACTUALIZE.
 public class UsuarioBD {
     ArrayList<Usuario> usuarioBD = new ArrayList<Usuario>();
 
@@ -35,7 +33,7 @@ public class UsuarioBD {
             u.setLogueado(false);
         }
     }
-    
+
     public Usuario buscarSesion(){
         for(Usuario u : usuarioBD){
             if(u.isLogueado()==true){
