@@ -44,7 +44,7 @@ public class Menus {
 
     public String datosRecuperar(){
         String recuperar;
-        System.out.println("Introduce tu pregunta de seguridad para recuperar la contraseña: ");
+        System.out.println("Pregunta de seguridad: \n" + " ¿Nombre de tu primera mascota?: ");
         recuperar = sc.next();
         return recuperar;
     }
