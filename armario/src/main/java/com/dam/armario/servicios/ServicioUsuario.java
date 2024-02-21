@@ -2,38 +2,48 @@ package com.dam.armario.servicios;
 import java.util.Scanner;
 
 import com.dam.armario.entidades.usuario.*;
+import com.dam.armario.repositorio.UsuarioBD;
 
-import com.dam.armario.repositorio.*;
 
 public class ServicioUsuario {
 
-    UsuarioBD listaUsers= new UsuarioBD();
 
-    public void altaUsuario(String nombre, String email, String password, String recuperar){
-        Usuario usuario = new Usuario(nombre, email, password, recuperar);
+    public void altaUsuario(UsuarioBD listaUsers, String[] datos){
+        Usuario usuario = new Usuario(datos[0], datos[1], datos[2], datos[3]);
         listaUsers.altaUsuario(usuario);   
     }
 
-    public void eliminarUsuario(String nombre, String contraseña){
-        Usuario a = listaUsers.buscarUsuario(nombre, contraseña);
+    public void eliminarUsuario(UsuarioBD listaUsers, String[] datos){
+        Usuario a = listaUsers.buscarUsuario(datos[0], datos[1]);
         if (a!=null){
             listaUsers.eliminarUsuario(a);
         }
     }
 
-    public void logInUsuario(String nombre, String contraseña){
-        Usuario a = listaUsers.buscarUsuario(nombre, contraseña);
+    public void logInUsuario(UsuarioBD listaUsers,String[] datos){
+        Usuario a = listaUsers.buscarUsuario(datos[0], datos[1]);
         listaUsers.setFalse();
         if(a!=null){
             a.setLogueado(true);
         }
-
-    }
-
-    public void modificarUsuario(Scanner sc ) {
         
     }
 
+    public boolean checkSesion(UsuarioBD listaUsers){
+        boolean sesion = false;
+        if(listaUsers.buscarSesion()!=null){
+            sesion = true;
+        }else{
+            sesion = false;
+        }
+        return sesion;
+    }
+
+    public Usuario recuperarUsuario(UsuarioBD listaUsers, String recuperar){
+        return listaUsers.recuperarContraseña(recuperar);
+    }
+
+        
 
   
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.dam.armario.entidades.usuario.*;
 // ENVIAR LA BASE DE DATOS A CADA CONTROLADOR PARA QUE SE ACTUALIZE.
-public class UsuarioBD {
+public class UsuarioBD{
     ArrayList<Usuario> usuarioBD = new ArrayList<Usuario>();
 
     public ArrayList<Usuario> getUsuarioBD() {
@@ -41,6 +41,21 @@ public class UsuarioBD {
             }
         }
         return null;
+    }
+
+    public Usuario recuperarContraseña(String recuperar) {
+        for (Usuario u : usuarioBD){
+            if(recuperar.equals(u.getRecuperar())){
+                return u;
+            }
+        }
+        return null;
+    }
+    
+    public void cerrarSesion(){
+        for(Usuario u : usuarioBD){
+            u.setLogueado(false);
+        }
     }
 
 }
