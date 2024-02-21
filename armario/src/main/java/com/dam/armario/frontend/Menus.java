@@ -2,7 +2,6 @@ package com.dam.armario.frontend;
 
 import java.util.*;
 
-import com.dam.armario.repositorio.UsuarioBD;
 import com.dam.armario.entidades.usuario.Usuario;
 
 public class Menus {

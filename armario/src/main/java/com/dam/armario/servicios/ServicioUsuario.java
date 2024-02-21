@@ -1,5 +1,5 @@
 package com.dam.armario.servicios;
-import java.util.Scanner;
+
 
 import com.dam.armario.entidades.usuario.*;
 import com.dam.armario.repositorio.UsuarioBD;
@@ -26,7 +26,7 @@ public class ServicioUsuario {
         if(a!=null){
             a.setLogueado(true);
         }
-        
+
     }
 
     public boolean checkSesion(UsuarioBD listaUsers){
