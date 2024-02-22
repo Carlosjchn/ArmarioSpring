@@ -44,7 +44,6 @@ public abstract class Ropa {
 		this.material = material;
 	}
 	
-	
 	//TO STRING
 	@Override
 	public String toString() {

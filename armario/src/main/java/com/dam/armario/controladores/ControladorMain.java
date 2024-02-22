@@ -3,7 +3,7 @@ package com.dam.armario.controladores;
 import com.dam.armario.servicios.*;
 
 import java.util.*;
-
+import com.dam.armario.entidades.ropa.*;
 import com.dam.armario.frontend.*;
 import com.dam.armario.repositorio.*;
 
@@ -11,6 +11,7 @@ public class ControladorMain {
     UsuarioBD listaUsuarios = new UsuarioBD();
     ServicioUsuario funcionesUser = new ServicioUsuario();
     MenuInicio menuInicio = new MenuInicio();
+    MenuPrincipal menuP = new MenuPrincipal();
 
     Scanner sc = new Scanner(System.in);
 
@@ -40,14 +41,21 @@ public class ControladorMain {
                     inicio = false;
                     break;
             }
-            ;
+            
 
         } while (funcionesUser.checkSesion(listaUsuarios) == false && inicio == true);
 
         while (funcionesUser.checkSesion(listaUsuarios) == true && inicio == true){
             
             
-            System.out.println("Bienvenido");
+            Ropa p1 = new Pantalon("Rojo", "XL", "Nike", "Algodon", "Chandal", "Ancho");
+            Ropa c1 = new Camiseta("Negra", "L", "Adidas", "Cobre", "Chandal", "Armadura");
+            ArrayList<Ropa> listaRopa = new ArrayList<Ropa>();
+            
+            listaRopa.add(p1);
+            listaRopa.add(c1);
+
+            System.out.println(listaRopa);
         }
     }
 }
