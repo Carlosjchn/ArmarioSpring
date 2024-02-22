@@ -10,40 +10,44 @@ import com.dam.armario.repositorio.*;
 public class ControladorMain {
     UsuarioBD listaUsuarios = new UsuarioBD();
     ServicioUsuario funcionesUser = new ServicioUsuario();
-    Menus menus = new Menus();
-    
+    MenuInicio menuInicio = new MenuInicio();
+
     Scanner sc = new Scanner(System.in);
-    
+
     public void inicio() {
-        
-        do{
-            String opcion = menus.registro();
-            
-           switch(opcion){
-            case "1":
-                funcionesUser.altaUsuario(listaUsuarios,menus.datosRegistro());
-                break;
-            case "2":
-                funcionesUser.logInUsuario(listaUsuarios, menus.datosLogin());
-                break;
-            case "3":
-                String recuperar = menus.datosRecuperar();
-                if(funcionesUser.recuperarUsuario(listaUsuarios, recuperar )!=null){
-                    menus.recuperarContraseña(funcionesUser.recuperarUsuario(listaUsuarios,recuperar));
-                }else{
-                    menus.errorRecuperar();
-                }
+        boolean inicio = true;
+        do {
+            String opcion = menuInicio.registro();
+
+            switch (opcion) {
+                case "1":
+                    funcionesUser.altaUsuario(listaUsuarios, menuInicio.datosRegistro());
                     break;
-            case "4":
-                listaUsuarios.cerrarSesion();
-                menus.cerrarSesion();
-                break;
-           };
-           
-        }while(funcionesUser.checkSesion(listaUsuarios) == false);
-       
-        do{
+                case "2":
+                    funcionesUser.logInUsuario(listaUsuarios, menuInicio.datosLogin());
+                    break;
+                case "3":
+                    String recuperar = menuInicio.datosRecuperar();
+                    if (funcionesUser.recuperarUsuario(listaUsuarios, recuperar) != null) {
+                        menuInicio.recuperarContraseña(funcionesUser.recuperarUsuario(listaUsuarios, recuperar));
+                    } else {
+                        menuInicio.errorRecuperar();
+                    }
+                    break;
+                case "4":
+                    listaUsuarios.cerrarSesion();
+                    menuInicio.cerrarSesion();
+                    inicio = false;
+                    break;
+            }
+            ;
+
+        } while (funcionesUser.checkSesion(listaUsuarios) == false && inicio == true);
+
+        while (funcionesUser.checkSesion(listaUsuarios) == true && inicio == true){
+            
+            
             System.out.println("Bienvenido");
-        }while(funcionesUser.checkSesion(listaUsuarios) == true);
+        }
     }
 }

@@ -4,7 +4,7 @@ import java.util.*;
 
 import com.dam.armario.entidades.usuario.Usuario;
 
-public class Menus {
+public class MenuInicio {
     Scanner sc = new Scanner(System.in);
 
     public String registro() {
