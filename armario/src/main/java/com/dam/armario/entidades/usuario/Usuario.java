@@ -12,8 +12,8 @@ public class Usuario {
     private String recuperar;
     private boolean Logueado=false;
     
-    ArrayList<Ropa> RopaBD = new ArrayList<Ropa>();
-    ArrayList<Outfits> OutfitsBD = new ArrayList<Outfits>();
+    private ArrayList<Ropa> RopaBD = new ArrayList<Ropa>();
+    private ArrayList<Outfits> OutfitsBD = new ArrayList<Outfits>();
     
     public Usuario(String nombre, String email, String password, String recuperar) {
         this.nombre = nombre;

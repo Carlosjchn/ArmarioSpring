@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.dam.armario.entidades.usuario.*;
 // ENVIAR LA BASE DE DATOS A CADA CONTROLADOR PARA QUE SE ACTUALIZE.
 public class UsuarioBD{
-    ArrayList<Usuario> usuarioBD = new ArrayList<Usuario>();
+    private ArrayList<Usuario> usuarioBD = new ArrayList<Usuario>();
 
     public ArrayList<Usuario> getUsuarioBD() {
         return usuarioBD;

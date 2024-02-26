@@ -30,13 +30,11 @@ public class ServicioUsuario {
     }
 
     public boolean checkSesion(UsuarioBD listaUsers){
-        boolean sesion = false;
         if(listaUsers.buscarSesion()!=null){
-            sesion = true;
+            return true;
         }else{
-            sesion = false;
+            return false;
         }
-        return sesion;
     }
 
     public Usuario recuperarUsuario(UsuarioBD listaUsers, String recuperar){

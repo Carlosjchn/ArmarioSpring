@@ -8,8 +8,11 @@ public class MenuInicio {
     Scanner sc = new Scanner(System.in);
 
     public String registro() {
+        System.out.println("Menu Inicio");
         System.out.println("\t 1. Registrarse \n\t 2. Iniciar Sesión \n\t 3. Recuperar cotraseña \n\t 4. Salir ");
+        
         String opcion;
+       
         do {
             System.out.println("Elige una opcion: \t");
             opcion = sc.next();
@@ -48,8 +51,8 @@ public class MenuInicio {
         return recuperar;
     }
 
-    public void cerrarSesion(){
-        System.out.println("Sesión cerrada con éxito");
+    public void salirApp(){
+        System.out.println("Cerrando app...");
     }
 
     public void recuperarContraseña(Usuario u){

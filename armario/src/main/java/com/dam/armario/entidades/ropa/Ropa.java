@@ -5,17 +5,18 @@ public abstract class Ropa {
 	protected String talla;
 	protected String marca;
 	protected String material;
-	
+	protected String estilo;
+
 	//CONSTRUCTORS
 	public Ropa() {
 		
 	}
-	public Ropa(String color, String talla, String marca,  String material) {
-		super();
+	public Ropa(String color, String talla, String marca,  String material, String estilo) {
 		this.color = color;
 		this.talla = talla;
 		this.marca = marca;
 		this.material = material;
+		this.estilo = estilo;
 	}
 	// GETS AND SETS 
 	
@@ -43,7 +44,9 @@ public abstract class Ropa {
 	public void setMaterial(String material) {
 		this.material = material;
 	}
-	
+
+
+
 	//TO STRING
 	@Override
 	public String toString() {

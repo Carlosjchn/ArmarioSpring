@@ -8,8 +8,8 @@ public class Abrigo extends Ropa{
 	public Abrigo( ) {
 		
 	}
-	public Abrigo(String tipo, String estilo) {
-		super();
+	public Abrigo(String color, String talla, String marca,  String material, String tipo, String estilo) {
+		super(color, talla, marca, material, estilo);
 		this.tipo = tipo;
 		this.estilo = estilo;
 	}

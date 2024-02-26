@@ -11,7 +11,7 @@ public class Pantalon extends Ropa{
 	}
 
 	public Pantalon(String color, String talla, String marca, String material, String tipo, String estilo) {
-		super(color, talla, marca, material);
+		super(color, talla, marca, material, estilo);
 		this.tipo = tipo;
 		this.estilo = estilo;
 	}

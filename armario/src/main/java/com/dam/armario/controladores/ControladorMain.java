@@ -4,6 +4,7 @@ import com.dam.armario.servicios.*;
 
 import java.util.*;
 import com.dam.armario.entidades.ropa.*;
+import com.dam.armario.entidades.usuario.*;
 import com.dam.armario.frontend.*;
 import com.dam.armario.repositorio.*;
 
@@ -12,50 +13,58 @@ public class ControladorMain {
     ServicioUsuario funcionesUser = new ServicioUsuario();
     MenuInicio menuInicio = new MenuInicio();
     MenuPrincipal menuP = new MenuPrincipal();
+    MenuRopa menuRopa = new MenuRopa();
 
     Scanner sc = new Scanner(System.in);
 
     public void inicio() {
         boolean inicio = true;
-        do {
-            String opcion = menuInicio.registro();
+        while (inicio == true) {
+            do {
+                String opcion = menuInicio.registro();
+                switch (opcion) {
+                    case "1": // registrar usuario
+                        funcionesUser.altaUsuario(listaUsuarios, menuInicio.datosRegistro());
+                        break;
+                    case "2": // iniciar sesion
+                        funcionesUser.logInUsuario(listaUsuarios, menuInicio.datosLogin());
+                        break;
+                    case "3": // recuperar usuario
+                        String recuperar = menuInicio.datosRecuperar();
+                        Usuario userRecuperar = funcionesUser.recuperarUsuario(listaUsuarios, recuperar);
+                        if (userRecuperar != null) {
+                            menuInicio.recuperarContraseña(userRecuperar);
+                        } else {
+                            menuInicio.errorRecuperar();
+                        }
+                        break;
+                    case "4": // salir programa ARREGLAR
+                        listaUsuarios.cerrarSesion();
+                        menuInicio.salirApp();
+                        inicio = false; 
+                        break;
+                }
 
-            switch (opcion) {
-                case "1":
-                    funcionesUser.altaUsuario(listaUsuarios, menuInicio.datosRegistro());
-                    break;
-                case "2":
-                    funcionesUser.logInUsuario(listaUsuarios, menuInicio.datosLogin());
-                    break;
-                case "3":
-                    String recuperar = menuInicio.datosRecuperar();
-                    if (funcionesUser.recuperarUsuario(listaUsuarios, recuperar) != null) {
-                        menuInicio.recuperarContraseña(funcionesUser.recuperarUsuario(listaUsuarios, recuperar));
-                    } else {
-                        menuInicio.errorRecuperar();
-                    }
-                    break;
-                case "4":
-                    listaUsuarios.cerrarSesion();
-                    menuInicio.cerrarSesion();
-                    inicio = false;
-                    break;
+            } while (funcionesUser.checkSesion(listaUsuarios) == false);
+
+            while (funcionesUser.checkSesion(listaUsuarios) == true) {
+
+                String opcion = menuP.principal();
+                switch (opcion) {
+                    case "1": // Ropa
+                    
+                    case "2": // Outfits
+
+                    case "3": // Tienda
+
+                    case "4": // Perfil
+
+                    case "5": // Cerrar sesion.
+                        listaUsuarios.cerrarSesion();
+                        System.out.println("Cerrando sesion...");
+                }
+
             }
-            
-
-        } while (funcionesUser.checkSesion(listaUsuarios) == false && inicio == true);
-
-        while (funcionesUser.checkSesion(listaUsuarios) == true && inicio == true){
-            
-            
-            Ropa p1 = new Pantalon("Rojo", "XL", "Nike", "Algodon", "Chandal", "Ancho");
-            Ropa c1 = new Camiseta("Negra", "L", "Adidas", "Cobre", "Chandal", "Armadura");
-            ArrayList<Ropa> listaRopa = new ArrayList<Ropa>();
-            
-            listaRopa.add(p1);
-            listaRopa.add(c1);
-
-            System.out.println(listaRopa);
         }
     }
 }

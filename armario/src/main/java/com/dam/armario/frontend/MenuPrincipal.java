@@ -6,6 +6,7 @@ public class MenuPrincipal {
     Scanner sc = new Scanner(System.in);
 
     public String principal() {
+        System.out.println("Menú Principal");
         System.out.println("\t 1. Ropa \n\t 2. Outfits \n\t 3. Tienda \n\t 4. Perfil \n\t 5. Cerrar sesion.");
         String opcion;
         do {
