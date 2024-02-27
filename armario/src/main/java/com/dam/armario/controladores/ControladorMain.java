@@ -66,7 +66,7 @@ public class ControladorMain {
                         }
                         break;
                     case "2": // Outfits
-
+                        
                         break;
                     case "3": // Tienda
 

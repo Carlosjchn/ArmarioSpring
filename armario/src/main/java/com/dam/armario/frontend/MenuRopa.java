@@ -4,7 +4,6 @@ import java.util.*;
 
 import com.dam.armario.entidades.ropa.Ropa;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 
 public class MenuRopa {
     Scanner sc = new Scanner(System.in);
