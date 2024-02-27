@@ -68,7 +68,7 @@ public class Usuario {
         return RopaBD;
     }
 
-    public void altaUsuario(Ropa ropa) {
+    public void altaRopa(Ropa ropa) {
         RopaBD.add(ropa);
     }
 

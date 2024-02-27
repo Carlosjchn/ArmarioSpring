@@ -26,6 +26,10 @@ public class Jerseis extends Ropa{
 	public void setEstilo(String estilo) {
 		this.estilo = estilo;
 	}
+	@Override
+	public String toString() {
+		return "Jerseis [" + super.toString() + "tipo=" + tipo + ", estilo=" + estilo + "]";
+	}
 	
 	
 }

@@ -9,13 +9,14 @@ import com.dam.armario.frontend.*;
 import com.dam.armario.repositorio.*;
 
 public class ControladorMain {
-    UsuarioBD listaUsuarios = new UsuarioBD();
-    ServicioUsuario funcionesUser = new ServicioUsuario();
-    MenuInicio menuInicio = new MenuInicio();
+    UsuarioBD listaUsuarios = new UsuarioBD(); // "Base de datos de usuarios"
+
+    MenuInicio menuInicio = new MenuInicio(); // "Sysos y Scanners"
     MenuPrincipal menuP = new MenuPrincipal();
     MenuRopa menuRopa = new MenuRopa();
 
-    Scanner sc = new Scanner(System.in);
+    ServicioUsuario funcionesUser = new ServicioUsuario(); // Servicios de los objetos
+    ServicioRopa funcionesRopa = new ServicioRopa();
 
     public void inicio() {
         boolean inicio = true;
@@ -41,7 +42,7 @@ public class ControladorMain {
                     case "4": // salir programa ARREGLAR
                         listaUsuarios.cerrarSesion();
                         menuInicio.salirApp();
-                        inicio = false; 
+                        inicio = false;
                         break;
                 }
 
@@ -52,16 +53,31 @@ public class ControladorMain {
                 String opcion = menuP.principal();
                 switch (opcion) {
                     case "1": // Ropa
-                    
+                        opcion = menuRopa.ropa();
+                        switch (opcion) {
+                            case "1": // ver Ropa
+                                funcionesRopa.verPrendas(listaUsuarios.buscarSesion());
+                                break;
+                            case "2": // añadir Prenda
+                                ArrayList<String> configPrenda = menuRopa.menuAñadirPrenda();
+                                Ropa nuevaPrenda = funcionesRopa.crearPrenda(configPrenda);
+                                funcionesRopa.guardarPrenda(nuevaPrenda, listaUsuarios);
+                                break;
+                        }
+                        break;
                     case "2": // Outfits
 
+                        break;
                     case "3": // Tienda
 
+                        break;
                     case "4": // Perfil
-
+                        
+                        break;
                     case "5": // Cerrar sesion.
                         listaUsuarios.cerrarSesion();
                         System.out.println("Cerrando sesion...");
+                        break;
                 }
 
             }

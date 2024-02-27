@@ -49,6 +49,15 @@ public class MenuRopa {
             opcion.add(1,sc.next());
         } while (Integer.parseInt(opcion.get(1)) < 1 && Integer.parseInt(opcion.get(1)) > 6);
         do {
+        if(opcion.get(0).equals("7")) {
+            System.out.println("Elige la talla de tu prenda:");
+            System.out.println("\t 1. 35-36");
+            System.out.println("\t 2. 37-38");
+            System.out.println("\t 3. 38-39");
+            System.out.println("\t 4. 40-41");
+            System.out.println("\t 5. 41+");
+            opcion.add(2,sc.next());
+        }else{
         System.out.println("Elige la talla de tu prenda:");
             System.out.println("\t 1. XS");
             System.out.println("\t 2. S");
@@ -56,7 +65,12 @@ public class MenuRopa {
             System.out.println("\t 4. L");
             System.out.println("\t 5. XL");
             opcion.add(2,sc.next());
+        }
         } while (Integer.parseInt(opcion.get(2)) < 1 && Integer.parseInt(opcion.get(2)) > 5);
+        do {
+            System.out.println("Escribe la marca de tu prenda:");
+                opcion.add(3,sc.next());
+        } while (opcion.get(3)==null);
         do {
         System.out.println("Elige el material de tu prenda:");
             System.out.println("1. Algodón");
@@ -64,10 +78,13 @@ public class MenuRopa {
             System.out.println("3. Nilon");
             System.out.println("4. Poliester");
             System.out.println("5. Cuero");
-            opcion.add(3,sc.next());
-        } while (Integer.parseInt(opcion.get(3)) < 1 && Integer.parseInt(opcion.get(3)) > 5);
+            opcion.add(4,sc.next());
+        } while (Integer.parseInt(opcion.get(4)) < 1 && Integer.parseInt(opcion.get(4)) > 5);
 
         return opcion;
     }
-
+    
+    public void noHayPrendas(){
+        System.out.println("Aún no tienes prendas registradas");
+    }
 }

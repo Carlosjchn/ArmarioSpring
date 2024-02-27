@@ -50,7 +50,7 @@ public abstract class Ropa {
 	//TO STRING
 	@Override
 	public String toString() {
-		return "Ropa [color=" + color + ", talla=" + talla + ", marca=" + marca + ", material=" + material + "]";
+		return "color=" + color + ", talla=" + talla + ", marca=" + marca + ", material=" + material ;
 	}	
 	
 	
