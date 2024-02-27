@@ -1,34 +1,39 @@
 package com.dam.armario.entidades.ropa;
 
 public class Sudadera extends Ropa{
-	private String tipo; //con capucha, sin capucha, cremallera...
-	private String estilo;
+	private Boolean capucha; 
+	private String estampado;
 	
 	//constructors
 	public Sudadera( ) {
-		
-	}
-	public Sudadera(String tipo, String estilo) {
 		super();
-		this.tipo = tipo;
-		this.estilo = estilo;
+	}
+	public Sudadera(String color, String talla, String marca,  String material, String estilo, boolean capucha, String estampado) {
+		super();
+		this.capucha = capucha;
+		this.estampado = estampado;
 	}
 	//GETS AND SETS
-	public String getTipo() {
-		return tipo;
-	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-	public String getEstilo() {
-		return estilo;
-	}
-	public void setEstilo(String estilo) {
-		this.estilo = estilo;
-	}
+	
+	public Boolean getCapucha (){
+		return capucha;
+    }
+
+	public void setCapucha(Boolean capucha) {
+        this.capucha = capucha;
+    }
+
+	public String getEstampado (){
+        return estampado;
+    }
+
+	public void setEstampado(String estampado) {
+        this.estampado = estampado;
+    }
+
 	@Override
 	public String toString() {
-		return "Sudadera [" + super.toString() + "tipo=" + tipo + ", estilo=" + estilo + "]";
+		return "Sudadera [" + super.toString() + "capucha=" + capucha + ", estampado=" + estampado + "]";
 	}
 	
 	

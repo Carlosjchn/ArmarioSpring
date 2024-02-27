@@ -5,7 +5,7 @@ public abstract class Ropa {
 	protected String talla;
 	protected String marca;
 	protected String material;
-	protected String estilo;
+	protected String estilo;  // formal o sport
 
 	//CONSTRUCTORS
 	public Ropa() {
