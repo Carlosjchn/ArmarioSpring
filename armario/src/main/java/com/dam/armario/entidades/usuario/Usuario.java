@@ -11,7 +11,7 @@ public class Usuario {
     private String password;
     private String recuperar;
     private boolean Logueado=false;
-    
+
     private ArrayList<Ropa> RopaBD = new ArrayList<Ropa>();
     private ArrayList<Outfits> OutfitsBD = new ArrayList<Outfits>();
     
@@ -68,6 +68,10 @@ public class Usuario {
         return RopaBD;
     }
 
+    public Ropa getPrenda(int index){
+        return RopaBD.get(index);
+    }
+
     public void altaRopa(Ropa ropa) {
         RopaBD.add(ropa);
     }
@@ -80,8 +84,8 @@ public class Usuario {
         OutfitsBD.add(outfit);
     }
 
-    public void elegirOutfit(int index){
-        OutfitsBD.get(index - 1);
+    public Outfits elegirOutfit(int index){
+        return OutfitsBD.get(index - 1);
     }
 
 }

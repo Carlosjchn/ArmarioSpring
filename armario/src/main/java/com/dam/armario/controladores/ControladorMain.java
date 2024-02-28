@@ -27,10 +27,12 @@ public class ControladorMain {
                 String opcion = menuInicio.registro();
                 switch (opcion) {
                     case "1": // registrar usuario
-                        funcionesUser.altaUsuario(listaUsuarios, menuInicio.datosRegistro());
+                        ArrayList<String> datos = menuInicio.datosRegistro();
+                        funcionesUser.alta(datos, listaUsuarios);
                         break;
                     case "2": // iniciar sesion
-                        funcionesUser.logInUsuario(listaUsuarios, menuInicio.datosLogin());
+                        String datosLogin[] = menuInicio.datosLogin();
+                        funcionesUser.logInUsuario(listaUsuarios, datosLogin);
                         break;
                     case "3": // recuperar usuario
                         String recuperar = menuInicio.datosRecuperar();
@@ -62,20 +64,24 @@ public class ControladorMain {
                                 break;
                             case "2": // añadir Prenda
                                 ArrayList<String> configPrenda = menuRopa.menuAñadirPrenda();
-                                funcionesRopa.crear(configPrenda,listaUsuarios);
+                                funcionesRopa.alta(configPrenda, listaUsuarios);
                                 break;
                         }
                         break;
                     case "2": // Outfits
                         opcion = menuOutfit.outfit();
-                        switch(opcion){
+                        switch (opcion) {
                             case "1": // ver outfits
-                                funcionesOutfit.mostrar(listaUsuarios.buscarSesion());
-                                //Falta otro metodo para imprimir cada outfit.
+                                Usuario usuarioLogueado = listaUsuarios.buscarSesion();
+                                funcionesOutfit.mostrar(usuarioLogueado);
+                                if (listaUsuarios.buscarSesion().getOutfitsBD().size() > 0) {
+                                    String numeroOutfit = menuOutfit.elegirOutfit();
+                                    funcionesOutfit.verOutfit(numeroOutfit, usuarioLogueado);
+                                }
                                 break;
                             case "2": // crear outfit
                                 ArrayList<String> configOutfit = menuOutfit.crearOutfit(listaUsuarios);
-                                funcionesOutfit.crear(configOutfit, listaUsuarios);
+                                funcionesOutfit.alta(configOutfit, listaUsuarios);
                                 break;
                         }
                         break;
@@ -83,7 +89,7 @@ public class ControladorMain {
 
                         break;
                     case "4": // Perfil
-                        
+
                         break;
                     case "5": // Cerrar sesion.
                         listaUsuarios.cerrarSesion();

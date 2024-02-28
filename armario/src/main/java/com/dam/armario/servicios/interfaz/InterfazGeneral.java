@@ -6,6 +6,6 @@ import com.dam.armario.entidades.usuario.Usuario;
 import com.dam.armario.repositorio.UsuarioBD;
 
 public interface InterfazGeneral {
-    public void crear(ArrayList<String> opcionPrenda, UsuarioBD listaUsuarios);
+    public void alta(ArrayList<String> opcionPrenda, UsuarioBD listaUsuarios);
     public void mostrar(Usuario u);
 }

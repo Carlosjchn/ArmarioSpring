@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.dam.armario.entidades.outfits.Outfits;
+import com.dam.armario.entidades.ropa.Ropa;
 import com.dam.armario.repositorio.UsuarioBD;
 import com.dam.armario.servicios.ServicioRopa;
 
@@ -32,13 +33,13 @@ public class MenuOutfit {
         String posicionPrenda;
         funcionesRopa.mostrar(listaUsuarios.buscarSesion());
         do {
-            System.out.println("Elige el numero prenda para tu Outfit o escribir 'Fin' para terminar crear.");
+            System.out.println("Elige el numero prenda para tu Outfit o escribir 'salir' para terminar crear.");
             posicionPrenda = sc.next();
-            if (posicionPrenda.equalsIgnoreCase("fin")==false) {
+            if (posicionPrenda.equalsIgnoreCase("salir") == false) {
                 opcionesOutfit.add(posicionPrenda);
             }
-        } while (posicionPrenda.equalsIgnoreCase("fin")==false);
-        
+        } while (posicionPrenda.equalsIgnoreCase("salir") == false);
+
         System.out.println("Dale un nombre a tu Outfit:");
         String nombreOutfit = sc.next();
         opcionesOutfit.add(nombreOutfit);
@@ -46,8 +47,23 @@ public class MenuOutfit {
         return opcionesOutfit;
     }
 
-    public void imprimirOutfit(Outfits outfit, int iteraciones) {
+    public void listaOufits(Outfits outfit, int iteraciones) {
         System.out.println(iteraciones + ". " + outfit.getNombreOutfit());
+    }
+
+    public String elegirOutfit(){
+        System.out.println("Elige el numero del outfit que quieres ver:");
+        String numeroOutfit = sc.next();
+        return numeroOutfit;
+    }
+
+    public void imprimirOutfit(Outfits outfit) {
+        System.out.println(outfit.getNombreOutfit());
+        int iteraciones = 0;
+        for (Ropa prenda : outfit.getNuevoOutfit()) {
+            iteraciones++;
+            System.out.println("\t" + iteraciones + " - " + prenda);
+        }
     }
 
     public void noHayOutfit() {

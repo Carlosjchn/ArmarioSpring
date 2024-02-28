@@ -37,6 +37,9 @@ public class Outfits{
         NuevoOutfit = nuevoOutfit;
     }
     
+    public ArrayList<Ropa> verOutfit(){
+        return NuevoOutfit;
+    }
     
 
     @Override

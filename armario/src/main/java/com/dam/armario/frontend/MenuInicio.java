@@ -10,9 +10,9 @@ public class MenuInicio {
     public String registro() {
         System.out.println("Menu Inicio");
         System.out.println("\t 1. Registrarse \n\t 2. Iniciar Sesión \n\t 3. Recuperar cotraseña \n\t 4. Salir ");
-        
+
         String opcion;
-       
+
         do {
             System.out.println("Elige una opcion: \t");
             opcion = sc.next();
@@ -20,46 +20,46 @@ public class MenuInicio {
         return opcion;
     }
 
-    public String[] datosRegistro(){
-            String[] datos = new String[4];
+    public ArrayList<String> datosRegistro(){
+        ArrayList<String> datos = new ArrayList<String>();
             System.out.println("Introduce tus datos:");
             System.out.println("Nombre: ");
-            datos[0] = sc.next();
+            datos.add(0, sc.next());
             System.out.println("Email: ");
-            datos[1] = sc.next();
+            datos.add(1, sc.next());
             System.out.println("Contraseña: ");
-            datos[2] = sc.next();
+            datos.add(2, sc.next());
             System.out.println("Pregunta de seguridad: \n ¿Nombre de tu primera mascota?: ");
-            datos[3] = sc.next();
+            datos.add(3, sc.next());
             return datos;
     }
 
-    public String[] datosLogin(){
+    public String[] datosLogin() {
         String[] datos = new String[2];
-            System.out.println("Introduce tus datos para iniciar sesión:");
-            System.out.println("Nombre: ");
-            datos[0]=sc.next();
-            System.out.println("Contraseña: ");
-            datos[1]=sc.next();
-            return datos;
+        System.out.println("Introduce tus datos para iniciar sesión:");
+        System.out.println("Nombre: ");
+        datos[0] = sc.next();
+        System.out.println("Contraseña: ");
+        datos[1] = sc.next();
+        return datos;
     }
 
-    public String datosRecuperar(){
+    public String datosRecuperar() {
         String recuperar;
         System.out.println("Pregunta de seguridad: \n" + " ¿Nombre de tu primera mascota?: ");
         recuperar = sc.next();
         return recuperar;
     }
 
-    public void salirApp(){
+    public void salirApp() {
         System.out.println("Cerrando app...");
     }
 
-    public void recuperarContraseña(Usuario u){
+    public void recuperarContraseña(Usuario u) {
         System.out.println("La contraseña para el usuario: " + u.getNombre() + " es: \n \t" + u.getPassword());
     }
 
-    public void errorRecuperar(){
+    public void errorRecuperar() {
         System.out.println("Respuesta incorrecta.");
     }
 }

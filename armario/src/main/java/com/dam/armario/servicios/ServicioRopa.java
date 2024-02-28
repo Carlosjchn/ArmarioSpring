@@ -10,7 +10,7 @@ import java.util.*;
 public class ServicioRopa implements InterfazGeneral {
     MenuRopa menuRopa = new MenuRopa();
 
-    public void crear(ArrayList<String> opcionPrenda, UsuarioBD listaUsuarios) {
+    public void alta(ArrayList<String> opcionPrenda, UsuarioBD listaUsuarios) {
         Ropa nuevaPrenda = crearObjeto(opcionPrenda);
         elegirColor(nuevaPrenda, opcionPrenda);
         elegirTalla(nuevaPrenda, opcionPrenda);

@@ -13,11 +13,11 @@ import com.dam.armario.servicios.interfaz.InterfazGeneral;
 public class ServicioOutfit implements InterfazGeneral {
     MenuOutfit menuOutfit = new MenuOutfit();
 
-    public void crear(ArrayList<String> opcionOutfit, UsuarioBD listaUsuario) {
+    public void alta(ArrayList<String> opcionOutfit, UsuarioBD listaUsuario) {
         Outfits nuevoOutfit = new Outfits();
         Usuario u = listaUsuario.buscarSesion();
         for (int i=0; i < opcionOutfit.size() - 1; i++) {
-            nuevoOutfit.addPrenda(u.getRopaBD().get(Integer.parseInt(opcionOutfit.get(i))));
+            nuevoOutfit.addPrenda(u.getPrenda(Integer.parseInt(opcionOutfit.get(i))-1));
         }
         nuevoOutfit.setNombreOutfit(opcionOutfit.get(opcionOutfit.size()-1));
         u.altaOutfit(nuevoOutfit);
@@ -30,14 +30,17 @@ public class ServicioOutfit implements InterfazGeneral {
             int iteraciones = 0;
             for (Outfits outfit : u.getOutfitsBD()) {
                 iteraciones++;
-                menuOutfit.imprimirOutfit(outfit, iteraciones);
+                menuOutfit.listaOufits(outfit, iteraciones);
             }
         }
     }
 
-    public void verOutfit(int index, Usuario u) {
-        if (index >= 1 || index < u.getOutfitsBD().size()) {
-            System.out.println(u.getOutfitsBD().get(index - 1));
+    public void verOutfit(String numeroOutfit, Usuario u) {
+        int index = Integer.parseInt(numeroOutfit);
+        if (index >= 1 && index <= u.getOutfitsBD().size()) {
+            menuOutfit.imprimirOutfit(u.getOutfitsBD().get(index - 1));
+        }else{
+            System.out.println("El número de outfit introducido no es válido");
         }
     }
 

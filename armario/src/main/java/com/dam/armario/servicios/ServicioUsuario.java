@@ -3,13 +3,15 @@ package com.dam.armario.servicios;
 
 import com.dam.armario.entidades.usuario.*;
 import com.dam.armario.repositorio.UsuarioBD;
+import com.dam.armario.servicios.interfaz.InterfazGeneral;
+
+import java.util.*;
+
+public class ServicioUsuario implements InterfazGeneral{
 
 
-public class ServicioUsuario {
-
-
-    public void altaUsuario(UsuarioBD listaUsers, String[] datos){
-        Usuario usuario = new Usuario(datos[0], datos[1], datos[2], datos[3]);
+    public void alta(ArrayList<String> datos, UsuarioBD listaUsers){
+        Usuario usuario = new Usuario(datos.get(0), datos.get(1), datos.get(2), datos.get(3));
         listaUsers.altaUsuario(usuario);   
     }
 
@@ -41,8 +43,9 @@ public class ServicioUsuario {
         return listaUsers.recuperarContraseña(recuperar);
     }
 
+    public void mostrar(Usuario u) {
         
-
+    }
   
 
 }
