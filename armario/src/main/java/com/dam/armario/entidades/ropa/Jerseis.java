@@ -30,7 +30,7 @@ public class Jerseis extends Ropa{
 
 	@Override
 	public String toString() {
-		return "Jerseis [" + super.toString() + "tipo de tela=" + tipoDeTela + ", cuello=" + cuello + "]";
+		return "Jerseis [" + super.toString() + ", tipo de tela=" + tipoDeTela + ", cuello=" + cuello + "]";
 	}
 	
 	

@@ -32,7 +32,7 @@ public class Sudadera extends Ropa{
 
 	@Override
 	public String toString() {
-		return "Sudadera [" + super.toString() + "capucha=" + capucha + ", estampado=" + estampado + "]";
+		return "Sudadera [" + super.toString() + ", capucha=" + capucha + ", estampado=" + estampado + "]";
 	}
 	
 	

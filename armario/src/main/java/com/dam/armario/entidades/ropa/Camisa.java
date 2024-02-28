@@ -35,7 +35,7 @@ public class Camisa extends Ropa{
 
 	@Override
 	public String toString() {
-		return "Camisa [" + super.toString() + "mangas=" + mangas + ", estampado=" + estampado + "]";
+		return "Camisa [" + super.toString() + ", mangas=" + mangas + ", estampado=" + estampado + "]";
 	}
 	
 	

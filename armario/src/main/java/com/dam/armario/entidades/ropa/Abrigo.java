@@ -25,7 +25,7 @@ public class Abrigo extends Ropa{
 
 	@Override
 	public String toString() {
-		return "Abrigo ["+ super.toString() + "capucha=" + capucha + "]";
+		return "Abrigo ["+ super.toString() + ", capucha=" + capucha + "]";
 	}
 	
 	

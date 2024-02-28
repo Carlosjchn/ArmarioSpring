@@ -23,7 +23,7 @@ public class Pantalon extends Ropa{
 
 	@Override
 	public String toString() {
-		return "Pantalon [" + super.toString() + "longitud=" + longitud + "]";
+		return "Pantalon [" + super.toString() + ", longitud=" + longitud + "]";
 	}
 	
 }
