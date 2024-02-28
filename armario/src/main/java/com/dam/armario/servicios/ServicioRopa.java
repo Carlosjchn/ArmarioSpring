@@ -141,6 +141,11 @@ public class ServicioRopa {
         a.setMaterial(material);
     }
 
+
+
+
+
+    
     public void guardarPrenda(Ropa prenda, UsuarioBD listaUsuario) {
         listaUsuario.buscarSesion().altaRopa(prenda);
     }

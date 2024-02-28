@@ -1,30 +1,30 @@
 package com.dam.armario.entidades.ropa;
 
 public class Jerseis extends Ropa{
-	private String cuello; // redondo o de pico
-	private String tipoDeTela; // fino o de tela gruesa
+	private boolean cuello; // redondo o de pico
+	private boolean tipoDeTela; // fino o de tela gruesa
 	
 	//constructors
 	public Jerseis( ) {}
 	
-	public Jerseis (String color, String talla, String marca,  String material, String estilo, String cuello, String tipoDeTela) {
+	public Jerseis (String color, String talla, String marca,  String material, String estilo, boolean cuello, boolean tipoDeTela) {
 		super();
 		this.cuello = cuello;
 		this.tipoDeTela= tipoDeTela;
 	}
 
 	//GETS AND SETS
-	public String getTipo() {
+	public boolean getTipo() {
 		return tipoDeTela; 
 	}
-	public void setTipo(String tipo) {
+	public void setTipo(boolean tipo) {
 		this.tipoDeTela = tipo;
 	}
 	
-	public String getCuello() {
+	public boolean getCuello() {
         return cuello;
     }
-	public void setCuello(String cuello) {
+	public void setCuello(boolean cuello) {
         this.cuello = cuello;
     }
 

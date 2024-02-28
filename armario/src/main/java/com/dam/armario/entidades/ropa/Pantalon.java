@@ -1,22 +1,22 @@
 package com.dam.armario.entidades.ropa;
 
 public class Pantalon extends Ropa{
-    private String longitud;  // corto o largo
+    private boolean longitud;  // corto o largo
 
 
 	
 	public Pantalon() {}
 
-	public Pantalon(String color, String talla, String marca,  String material, String estilo, String longitud) {
+	public Pantalon(String color, String talla, String marca,  String material, String estilo, boolean longitud) {
 		super(color, talla, marca, material, estilo);
 		this.longitud = longitud;
 		this.estilo = estilo;
 	}
 
-	public String getLongitud() {
+	public boolean getLongitud() {
 		return longitud;
     }
-	public void setLongitud(String longitud) {
+	public void setLongitud(boolean longitud) {
         this.longitud = longitud;
     }
 

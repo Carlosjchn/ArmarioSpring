@@ -1,7 +1,7 @@
 package com.dam.armario.entidades.ropa;
 
 public class Camisa extends Ropa{
-	private Boolean mangas; //con capucha, sin capucha, cremallera...
+	private Boolean mangas;
 	private Boolean estampado;
 	
 	//constructors
