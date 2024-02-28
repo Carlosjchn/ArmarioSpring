@@ -6,9 +6,7 @@ public class Camiseta extends Ropa{
 	private String estampado; 
 
 	//CONTRUCTORS
-	public Camiseta () {
-			super();
-	}
+	public Camiseta () {}
 	
 	public Camiseta(String color, String talla, String marca, String material, String estilo, String manga, String cuello, String estampado){
 		super(color, talla, marca, material, estilo);

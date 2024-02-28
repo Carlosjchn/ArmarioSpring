@@ -5,9 +5,8 @@ public class Camisa extends Ropa{
 	private Boolean estampado;
 	
 	//constructors
-	public Camisa() {
-		super();
-	}
+	public Camisa() {}
+	
 	public Camisa(String color, String talla, String marca,  String material, String estilo, Boolean mangas, Boolean estampado) {
 		super(color, talla, marca, material, estilo);
 		this.mangas = mangas;

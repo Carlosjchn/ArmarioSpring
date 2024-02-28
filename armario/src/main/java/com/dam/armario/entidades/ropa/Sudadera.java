@@ -5,9 +5,8 @@ public class Sudadera extends Ropa{
 	private String estampado;
 	
 	//constructors
-	public Sudadera( ) {
-		super();
-	}
+	public Sudadera( ) {}
+	
 	public Sudadera(String color, String talla, String marca,  String material, String estilo, boolean capucha, String estampado) {
 		super();
 		this.capucha = capucha;

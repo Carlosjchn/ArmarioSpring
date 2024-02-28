@@ -5,9 +5,8 @@ public class Abrigo extends Ropa{
 
 	
 	//constructors
-	public Abrigo( ) {
-		super();
-	}
+	public Abrigo( ) {}
+	
 	public Abrigo(String color, String talla, String marca,  String material, String estilo, Boolean capucha) {
 		super(color, talla, marca, material, estilo);
 		this.capucha = capucha;

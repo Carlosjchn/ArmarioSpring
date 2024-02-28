@@ -5,9 +5,8 @@ public class Jerseis extends Ropa{
 	private String tipoDeTela; // fino o de tela gruesa
 	
 	//constructors
-	public Jerseis( ) {
-		super();
-	}
+	public Jerseis( ) {}
+	
 	public Jerseis (String color, String talla, String marca,  String material, String estilo, String cuello, String tipoDeTela) {
 		super();
 		this.cuello = cuello;
