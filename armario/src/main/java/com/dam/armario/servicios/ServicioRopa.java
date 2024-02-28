@@ -166,7 +166,4 @@ public class ServicioRopa implements InterfazGeneral {
         }
     }
 
-    public void sugerencias(String tipoUsuario) {
-        // Add logic to provide style suggestions based on user type
-    }
 }

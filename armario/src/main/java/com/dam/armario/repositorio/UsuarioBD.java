@@ -58,4 +58,15 @@ public class UsuarioBD{
         }
     }
 
+    public ArrayList<Usuario> getVendedores(){
+        ArrayList<Usuario> vendedores = new ArrayList<>();
+        for(Usuario u : usuarioBD){
+            if(u.isLogueado()==false){
+            vendedores.add(u);
+            }
+        }
+        return vendedores;
+    }
+
+
 }

@@ -16,5 +16,7 @@ public class MenuPrincipal {
         return opcion;
     }   
 
-    
+    public void cerrarApp(){
+        System.out.println("Cerrando sesion...");
+    }
 }

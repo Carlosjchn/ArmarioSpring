@@ -3,9 +3,11 @@ package com.dam.armario.frontend;
 import java.util.*;
 
 import com.dam.armario.entidades.usuario.Usuario;
+import com.dam.armario.servicios.ServicioComun;
 
 public class MenuInicio {
     Scanner sc = new Scanner(System.in);
+    ServicioComun funcionComun = new ServicioComun();
 
     public String registro() {
         System.out.println("Menu Inicio");
@@ -20,18 +22,29 @@ public class MenuInicio {
         return opcion;
     }
 
-    public ArrayList<String> datosRegistro(){
+    public ArrayList<String> datosRegistro() {
         ArrayList<String> datos = new ArrayList<String>();
-            System.out.println("Introduce tus datos:");
-            System.out.println("Nombre: ");
-            datos.add(0, sc.next());
-            System.out.println("Email: ");
+        System.out.println("Introduce tus datos:");
+        System.out.println("Nombre: ");
+        datos.add(0, sc.next());
+        System.out.println("Email: ");
+        do {
             datos.add(1, sc.next());
-            System.out.println("Contraseña: ");
+            if(funcionComun.validarCorreoElectronico(datos.get(1)) == false){
+                System.out.println("Introduce un correo válido.");
+            }
+        } while (funcionComun.validarCorreoElectronico(datos.get(1)) == false);
+        System.out.println("Contraseña: ");
+        do {
+            System.out.println("La contraseña debe tener al menos 8 caracteres y contener al menos una letra minúscula, una letra mayúscula, un dígito y un carácter especial entre los especificados (@#$%^&+=!)");
             datos.add(2, sc.next());
-            System.out.println("Pregunta de seguridad: \n ¿Nombre de tu primera mascota?: ");
-            datos.add(3, sc.next());
-            return datos;
+            if(funcionComun.validarContrasena(datos.get(2)) == false){
+                System.out.println("Introduce una contraseña válida.");
+            }
+        } while (funcionComun.validarContrasena(datos.get(2)) == false);
+        System.out.println("Pregunta de seguridad: \n ¿Nombre de tu primera mascota?: ");
+        datos.add(3, sc.next());
+        return datos;
     }
 
     public String[] datosLogin() {
@@ -61,5 +74,13 @@ public class MenuInicio {
 
     public void errorRecuperar() {
         System.out.println("Respuesta incorrecta.");
+    }
+
+    public void loginCorrecto() {
+        System.out.println("Inicio de sesión correcto.");
+    }
+
+    public void loginError(){
+        System.out.println("Error en inicio de sesión");
     }
 }

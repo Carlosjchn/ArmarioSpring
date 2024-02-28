@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.dam.armario.entidades.outfits.Outfits;
 
-import com.dam.armario.entidades.ropa.Ropa;
 import com.dam.armario.entidades.usuario.Usuario;
 import com.dam.armario.frontend.*;
 import com.dam.armario.repositorio.*;
@@ -16,10 +15,10 @@ public class ServicioOutfit implements InterfazGeneral {
     public void alta(ArrayList<String> opcionOutfit, UsuarioBD listaUsuario) {
         Outfits nuevoOutfit = new Outfits();
         Usuario u = listaUsuario.buscarSesion();
-        for (int i=0; i < opcionOutfit.size() - 1; i++) {
-            nuevoOutfit.addPrenda(u.getPrenda(Integer.parseInt(opcionOutfit.get(i))-1));
+        for (int i = 0; i < opcionOutfit.size() - 1; i++) {
+            nuevoOutfit.addPrenda(u.getPrenda(Integer.parseInt(opcionOutfit.get(i)) - 1));
         }
-        nuevoOutfit.setNombreOutfit(opcionOutfit.get(opcionOutfit.size()-1));
+        nuevoOutfit.setNombreOutfit(opcionOutfit.get(opcionOutfit.size() - 1));
         u.altaOutfit(nuevoOutfit);
     }
 
@@ -35,12 +34,24 @@ public class ServicioOutfit implements InterfazGeneral {
         }
     }
 
+    public void mostrarAlaVenta(Usuario u) {
+        if (u.getOutfitsBD().isEmpty()) {
+            menuOutfit.noHayOutfit();
+        } else {
+            int iteraciones = 0;
+            for (Outfits outfit : u.getOutfitsBD()) {
+                iteraciones++;
+                menuOutfit.listaOufits(outfit, iteraciones);
+            }
+        }
+    }
+
     public void verOutfit(String numeroOutfit, Usuario u) {
         int index = Integer.parseInt(numeroOutfit);
         if (index >= 1 && index <= u.getOutfitsBD().size()) {
             menuOutfit.imprimirOutfit(u.getOutfitsBD().get(index - 1));
-        }else{
-            System.out.println("El número de outfit introducido no es válido");
+        } else {
+            menuOutfit.errorOutfit();
         }
     }
 

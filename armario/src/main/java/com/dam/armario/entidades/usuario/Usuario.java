@@ -10,18 +10,23 @@ public class Usuario {
     private String email;
     private String password;
     private String recuperar;
-    private boolean Logueado=false;
+    private int saldo;
+    private boolean Logueado = false;
 
-    private ArrayList<Ropa> RopaBD = new ArrayList<Ropa>();
-    private ArrayList<Outfits> OutfitsBD = new ArrayList<Outfits>();
-    
+    private ArrayList<Ropa> ropaBD = new ArrayList<Ropa>();
+    private ArrayList<Outfits> outfitsBD = new ArrayList<Outfits>();
+
+    private ArrayList<Ropa> ropaVenta = new ArrayList<Ropa>();
+    private ArrayList<Outfits> outfitsVenta = new ArrayList<Outfits>();
+
     public Usuario(String nombre, String email, String password, String recuperar) {
         this.nombre = nombre;
         this.email = email;
         this.password = password;
         this.recuperar = recuperar;
+        this.saldo = 100;
     }
-    
+
     public Usuario() {
     }
 
@@ -36,7 +41,7 @@ public class Usuario {
     public String getEmail() {
         return email;
     }
-    
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -64,28 +69,73 @@ public class Usuario {
     public void setLogueado(boolean logueado) {
         this.Logueado = logueado;
     }
+
     public ArrayList<Ropa> getRopaBD() {
-        return RopaBD;
+        return ropaBD;
     }
 
-    public Ropa getPrenda(int index){
-        return RopaBD.get(index);
+    public Ropa getPrenda(int index) {
+        return ropaBD.get(index);
     }
 
     public void altaRopa(Ropa ropa) {
-        RopaBD.add(ropa);
+        ropaBD.add(ropa);
     }
 
     public ArrayList<Outfits> getOutfitsBD() {
-        return OutfitsBD;
+        return outfitsBD;
     }
 
     public void altaOutfit(Outfits outfit) {
-        OutfitsBD.add(outfit);
+        outfitsBD.add(outfit);
     }
 
-    public Outfits elegirOutfit(int index){
-        return OutfitsBD.get(index - 1);
+    public Outfits elegirOutfit(int index) {
+        return outfitsBD.get(index - 1);
+    }
+
+    public int getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(int saldo) {
+        this.saldo = saldo;
+    }
+
+    public void setRopaBD(ArrayList<Ropa> ropaBD) {
+        this.ropaBD = ropaBD;
+    }
+
+    public void setOutfitsBD(ArrayList<Outfits> outfitsBD) {
+        this.outfitsBD = outfitsBD;
+    }
+
+    public ArrayList<Ropa> getRopaVenta() {
+        return ropaVenta;
+    }
+
+    public void setRopaVenta(ArrayList<Ropa> ropaVenta) {
+        this.ropaVenta = ropaVenta;
+    }
+
+    public ArrayList<Outfits> getOutfitsVenta() {
+        return outfitsVenta;
+    }
+
+    public void setOutfitsVenta(ArrayList<Outfits> outfitsVenta) {
+        this.outfitsVenta = outfitsVenta;
+    }
+
+    public String cifrarPassword() {
+        String passwordCifrada = "";
+        for (int i = 0; i < password.length(); i++) {
+            if (i == 0 || i == password.length() - 1) {
+                passwordCifrada += password.charAt(i);
+            } else {
+                passwordCifrada += "*";
+            }
+        }
+        return passwordCifrada;
     }
 
 }

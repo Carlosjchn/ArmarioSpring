@@ -1,7 +1,6 @@
 package com.dam.armario.frontend;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 import com.dam.armario.entidades.outfits.Outfits;
 import com.dam.armario.entidades.ropa.Ropa;
@@ -16,7 +15,7 @@ public class MenuOutfit {
         System.out.println("Menú de Outfits");
         System.out.println("\t 1. Ver outfits");
         System.out.println("\t 2. Crear outfit");
-        System.out.println("\t 3. Sugerencias");
+        System.out.println("\t 3. Salir");
 
         String opcion;
         do {
@@ -68,5 +67,9 @@ public class MenuOutfit {
 
     public void noHayOutfit() {
         System.out.println("No hay outfits creados todavía.");
+    }
+
+    public void errorOutfit(){
+        System.out.println("El número de outfit introducido no es válido");
     }
 }
