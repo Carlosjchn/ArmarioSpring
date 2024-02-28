@@ -83,69 +83,63 @@ public class MenuRopa {
         } while (Integer.parseInt(opcion.get(4)) < 1 && Integer.parseInt(opcion.get(4)) > 5);
 
         // hecho por josca, chamo borralo to si esta mal
-
-        if (opcion.get(0) == "1") {
+        switch (opcion.get(0)){
+            case "1":
                 System.out.println("Elige si el abrigo tiene capucha o no: ");
-                    System.out.println("\t 1. Si tiene capucha");
-                    System.out.println("\t 2. No tiene capucha");
-                        opcion.add(5,sc.next());
-                
-        }
-
-        if (opcion.get(0) == "2") {
+                                    System.out.println("\t 1. Si tiene capucha");
+                                    System.out.println("\t 2. No tiene capucha");
+                                        opcion.add(5,sc.next());
+                break;
+            case "2":
                 System.out.println("Elige si la camisa tiene mangas cortas o no:");
                     System.out.println("\t 1. Si tiene mangas cortas");
                     System.out.println("\t 2. Tiene mangas largas");
-                        opcion.add(6,sc.next());
+                        opcion.add(5,sc.next());
                 System.out.println("Elige si la camisa tiene estampado o no:");
                     System.out.println("\t 1. Si tiene estampado");
                     System.out.println("\t 2. No tiene estampado");
-                        opcion.add(7,sc.next());
-        }
-
-        if (opcion.get(0) == "3") {
+                        opcion.add(6,sc.next());
+                break;
+            case "3":
                 System.out.println("Elige si la camiseta tiene mangas cortas o no:");
                     System.out.println("\t 1. Si tiene mangas cortas");
                     System.out.println("\t 2. Tiene mangas largas");
-                        opcion.add(6,sc.next());
+                        opcion.add(5,sc.next());
                 System.out.println("Elige si la camiseta tiene el cuello redondo o de pico");
                     System.out.println("\t 1. Si tiene el cuello redondo");
                     System.out.println("\t 2. Si tiene el cuello de pico");
-                        opcion.add(8,sc.next());
+                        opcion.add(6,sc.next());
                 System.out.println("Elige si la camisa tiene estampado o no:");
                     System.out.println("\t 1. Si tiene estampado");
                     System.out.println("\t 2. No tiene estampado");
                         opcion.add(7,sc.next());
-        }
-
-        if(opcion.get(0) == "4") {
-            System.out.println("Elige si el jersey tiene el cuello redondo o de pico");
-                System.out.println("\t 1. Si tiene el cuello redondo");
-                System.out.println("\t 2. Si tiene el cuello de pico");
-                    opcion.add(8,sc.next());
-            System.out.println("Elige si la tela del jersey es fina o gruesa:");
-                System.out.println("\t 1. Si tiene telea fina");
-                System.out.println("\t 2. Si tiene telea gruesa");
-                    opcion.add(9,sc.next());
-        }
-
-        if(opcion.get(0) == "5") {  
-            System.out.println("Elige si el pantalon es corto o largo");
-                System.out.println("\t 1. Si tiene es corto");
-                System.out.println("\t 2. Si tiene es largo");
-                    opcion.add(10,sc.next());
-        }
-
-        if(opcion.get(0) == "6") {
-            System.out.println("Elige si la sudadera tiene capucha o no: ");
+                break;
+            case "4":
+                System.out.println("Elige si el jersey tiene el cuello redondo o de pico");
+                    System.out.println("\t 1. Si tiene el cuello redondo");
+                    System.out.println("\t 2. Si tiene el cuello de pico");
+                        opcion.add(5,sc.next());
+                System.out.println("Elige si la tela del jersey es fina o gruesa:");
+                    System.out.println("\t 1. Si tiene telea fina");
+                    System.out.println("\t 2. Si tiene telea gruesa");
+                        opcion.add(6,sc.next());
+                break;
+            case "5":
+                System.out.println("Elige si el pantalon es corto o largo");
+                    System.out.println("\t 1. Si tiene es corto");
+                    System.out.println("\t 2. Si tiene es largo");
+                        opcion.add(5,sc.next());
+                break;
+            case "6":
+                System.out.println("Elige si la sudadera tiene capucha o no: ");
                     System.out.println("\t 1. Si tiene capucha");
                     System.out.println("\t 2. No tiene capucha");
                         opcion.add(5,sc.next());
-            System.out.println("Elige si la sudadera tiene estampado o no:");
+                System.out.println("Elige si la sudadera tiene estampado o no:");
                     System.out.println("\t 1. Si tiene estampado");
                     System.out.println("\t 2. No tiene estampado");
-                        opcion.add(7,sc.next());
-        
+                        opcion.add(6,sc.next());
+                break;
         }
 
         return opcion;
@@ -168,7 +162,9 @@ public class MenuRopa {
     
     */ 
         
-
+    public void imprimirPrenda(Ropa prenda, int iteraciones){
+        System.out.println(iteraciones + ". " + prenda);
+    }
 
     
     public void noHayPrendas(){

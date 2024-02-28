@@ -6,12 +6,25 @@ public class Camisa extends Ropa{
 	
 	//constructors
 	public Camisa() {}
+
+
+	public Camisa (String mangas, String estampado) {
+		if (mangas.equals("1")) {
+			this.mangas = true;
+		} else if (mangas.equals("2")) {
+			this.mangas= false;
+		}
 	
-	public Camisa(String color, String talla, String marca,  String material, String estilo, Boolean mangas, Boolean estampado) {
-		super(color, talla, marca, material, estilo);
-		this.mangas = mangas;
-		this.estampado = estampado;
+		if (estampado.equals("1")) {
+			this.estampado = true;
+		}else if (estampado.equals("2")) {
+			this.estampado = false;
+		}
+	
 	}
+
+	
+	
 
 	//GETS AND SETS
 	

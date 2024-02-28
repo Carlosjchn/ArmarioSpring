@@ -6,12 +6,15 @@ public class Abrigo extends Ropa{
 	
 	//constructors
 	public Abrigo( ) {}
-	
-	public Abrigo(String color, String talla, String marca,  String material, String estilo, Boolean capucha) {
-		super(color, talla, marca, material, estilo);
-		this.capucha = capucha;
+		
+	public Abrigo (String capucha) {
+		if (capucha.equals("1")) {
+			this.capucha = true;
+		} else if (capucha.equals("2")) {
+			this.capucha= false;
+		}
 	}
-	
+
 	//GETS AND SETS
 	
 	public boolean getCapucha (){

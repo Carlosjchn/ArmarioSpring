@@ -3,41 +3,43 @@ package com.dam.armario.servicios;
 import com.dam.armario.entidades.ropa.*;
 import com.dam.armario.entidades.usuario.Usuario;
 import com.dam.armario.repositorio.*;
+import com.dam.armario.servicios.interfaz.InterfazGeneral;
 import com.dam.armario.frontend.*;
 import java.util.*;
 
-public class ServicioRopa {
+public class ServicioRopa implements InterfazGeneral {
     MenuRopa menuRopa = new MenuRopa();
 
-    public Ropa crearPrenda(ArrayList<String> opcionPrenda) {
+    public void crear(ArrayList<String> opcionPrenda, UsuarioBD listaUsuarios) {
         Ropa nuevaPrenda = crearObjeto(opcionPrenda);
         elegirColor(nuevaPrenda, opcionPrenda);
         elegirTalla(nuevaPrenda, opcionPrenda);
         elegirMarca(nuevaPrenda, opcionPrenda);
         elegirMaterial(nuevaPrenda, opcionPrenda);
-        return nuevaPrenda;
+
+        guardarPrenda(nuevaPrenda, listaUsuarios);
     }
 
     public Ropa crearObjeto(ArrayList<String> opcionPrenda) {
 
         switch (opcionPrenda.get(0)) {
             case "1":
-                Ropa abrigo = new Abrigo();
+                Ropa abrigo = new Abrigo(opcionPrenda.get(5));
                 return abrigo;
             case "2":
-                Ropa camisa = new Camisa();
+                Ropa camisa = new Camisa(opcionPrenda.get(5), opcionPrenda.get(6));
                 return camisa;
             case "3":
-                Ropa camiseta = new Camiseta();
+                Ropa camiseta = new Camiseta(opcionPrenda.get(5), opcionPrenda.get(6), opcionPrenda.get(7));
                 return camiseta;
             case "4":
-                Ropa jersey = new Jerseis();
+                Ropa jersey = new Jerseis(opcionPrenda.get(5), opcionPrenda.get(6));
                 return jersey;
             case "5":
-                Ropa pantalon = new Pantalon();
+                Ropa pantalon = new Pantalon(opcionPrenda.get(5));
                 return pantalon;
             case "6":
-                Ropa sudadera = new Sudadera();
+                Ropa sudadera = new Sudadera(opcionPrenda.get(5),opcionPrenda.get(6));
                 return sudadera;
             case "7":
                 Ropa zapato = new Zapatos();
@@ -141,7 +143,9 @@ public class ServicioRopa {
         a.setMaterial(material);
     }
 
+    
 
+    
 
 
 
@@ -150,12 +154,14 @@ public class ServicioRopa {
         listaUsuario.buscarSesion().altaRopa(prenda);
     }
 
-    public void verPrendas(Usuario u) {
+    public void mostrar(Usuario u) {
         if (u.getRopaBD().isEmpty()) {
             menuRopa.noHayPrendas();
         } else {
+            int iteraciones=0;
             for (Ropa prenda : u.getRopaBD()) {
-                System.out.println(prenda);
+                iteraciones++;
+                menuRopa.imprimirPrenda(prenda, iteraciones);
             }
         }
     }

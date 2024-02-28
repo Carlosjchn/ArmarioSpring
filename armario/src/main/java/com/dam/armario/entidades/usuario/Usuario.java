@@ -80,4 +80,8 @@ public class Usuario {
         OutfitsBD.add(outfit);
     }
 
+    public void elegirOutfit(int index){
+        OutfitsBD.get(index - 1);
+    }
+
 }

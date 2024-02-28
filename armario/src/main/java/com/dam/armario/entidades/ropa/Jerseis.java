@@ -7,10 +7,20 @@ public class Jerseis extends Ropa{
 	//constructors
 	public Jerseis( ) {}
 	
-	public Jerseis (String color, String talla, String marca,  String material, String estilo, boolean cuello, boolean tipoDeTela) {
-		super();
-		this.cuello = cuello;
-		this.tipoDeTela= tipoDeTela;
+	public Jerseis (String cuello, String tipoDeTela) {
+		if (cuello.equals("1") ) {
+			this.cuello = true;
+		} else if (cuello.equals("2") ) {
+			this.cuello= false;
+		}
+	
+		if (tipoDeTela.equals("1")) {
+			this.tipoDeTela = true;
+		} else if (tipoDeTela.equals("2")) {
+			this.tipoDeTela= false;
+		}
+	
+	
 	}
 
 	//GETS AND SETS

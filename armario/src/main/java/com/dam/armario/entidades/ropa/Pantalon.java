@@ -7,10 +7,12 @@ public class Pantalon extends Ropa{
 	
 	public Pantalon() {}
 
-	public Pantalon(String color, String talla, String marca,  String material, String estilo, boolean longitud) {
-		super(color, talla, marca, material, estilo);
-		this.longitud = longitud;
-		this.estilo = estilo;
+	public Pantalon(String longitud) {
+		if (longitud.equals("1")) {
+			this.longitud = true;
+		} else if (longitud.equals("2")) {
+			this.longitud = false;
+		}
 	}
 
 	public boolean getLongitud() {

@@ -7,10 +7,19 @@ public class Sudadera extends Ropa{
 	//constructors
 	public Sudadera( ) {}
 	
-	public Sudadera(String color, String talla, String marca,  String material, String estilo, boolean capucha, Boolean estampado) {
-		super();
-		this.capucha = capucha;
-		this.estampado = estampado;
+	public Sudadera(String capucha, String estampado) {
+		if (capucha.equals("1") ) {
+			this.capucha = true;
+		}else if (capucha.equals("2") ) {
+			this.capucha = false;
+		}
+
+		if (estampado.equals("1")) {
+			this.estampado = true;
+		}else if (estampado.equals("2")) {
+			this.estampado = false;
+		}
+		
 	}
 	//GETS AND SETS
 	

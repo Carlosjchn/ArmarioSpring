@@ -1,28 +1,43 @@
 package com.dam.armario.entidades.ropa;
 
 public class Camiseta extends Ropa{
-	private boolean manga;
+	private boolean mangas;
 	private boolean cuello; //redondo o de pico
 	private boolean estampado; 
 
 	//CONTRUCTORS
 	public Camiseta () {}
 	
-	public Camiseta(String color, String talla, String marca, String material, String estilo, boolean manga, boolean cuello, boolean estampado){
-		super(color, talla, marca, material, estilo);
-		this.manga = manga;
-		this.cuello = cuello;
-		this.estampado = estampado;
+	public Camiseta (String mangas, String cuello, String estampado) {
+		if (mangas.equals("1")) {
+			this.mangas = true;
+		} else if (mangas.equals("2")) {
+			this.mangas= false;
+		}
+
+		if (cuello.equals("1")) {
+			this.mangas = true;
+		} else if (cuello.equals("2")) {
+			this.mangas= false;
+		}
+
+		if (estampado.equals("1")) {
+			this.estampado = true;
+		} else if (estampado.equals("2")) {
+			this.estampado= false;
+		}
+
+
 	}
 	
 	
 	//GETS AND SETS
 	
 		public boolean getMangaString(){
-			return manga;
+			return mangas;
         }
-		public void setMangaString(boolean manga){
-            this.manga = manga;
+		public void setMangaString(boolean mangas){
+            this.mangas = mangas;
         }
 		
         public boolean getCuelloString(){
@@ -42,7 +57,7 @@ public class Camiseta extends Ropa{
 
 	@Override
 	public String toString() {
-		return  "Camiseta [" + super.toString() + ", manga=" + manga + ", cuello=" + cuello +  ", estampado=" + estampado + "]";
+		return  "Camiseta [" + super.toString() + ", manga=" + mangas + ", cuello=" + cuello +  ", estampado=" + estampado + "]";
 	} 
 	
     

@@ -14,9 +14,11 @@ public class ControladorMain {
     MenuInicio menuInicio = new MenuInicio(); // "Sysos y Scanners"
     MenuPrincipal menuP = new MenuPrincipal();
     MenuRopa menuRopa = new MenuRopa();
+    MenuOutfit menuOutfit = new MenuOutfit();
 
     ServicioUsuario funcionesUser = new ServicioUsuario(); // Servicios de los objetos
     ServicioRopa funcionesRopa = new ServicioRopa();
+    ServicioOutfit funcionesOutfit = new ServicioOutfit();
 
     public void inicio() {
         boolean inicio = true;
@@ -56,17 +58,26 @@ public class ControladorMain {
                         opcion = menuRopa.ropa();
                         switch (opcion) {
                             case "1": // ver Ropa
-                                funcionesRopa.verPrendas(listaUsuarios.buscarSesion());
+                                funcionesRopa.mostrar(listaUsuarios.buscarSesion());
                                 break;
                             case "2": // añadir Prenda
                                 ArrayList<String> configPrenda = menuRopa.menuAñadirPrenda();
-                                Ropa nuevaPrenda = funcionesRopa.crearPrenda(configPrenda);
-                                funcionesRopa.guardarPrenda(nuevaPrenda, listaUsuarios);
+                                funcionesRopa.crear(configPrenda,listaUsuarios);
                                 break;
                         }
                         break;
                     case "2": // Outfits
-                        
+                        opcion = menuOutfit.outfit();
+                        switch(opcion){
+                            case "1": // ver outfits
+                                funcionesOutfit.mostrar(listaUsuarios.buscarSesion());
+                                //Falta otro metodo para imprimir cada outfit.
+                                break;
+                            case "2": // crear outfit
+                                ArrayList<String> configOutfit = menuOutfit.crearOutfit(listaUsuarios);
+                                funcionesOutfit.crear(configOutfit, listaUsuarios);
+                                break;
+                        }
                         break;
                     case "3": // Tienda
 

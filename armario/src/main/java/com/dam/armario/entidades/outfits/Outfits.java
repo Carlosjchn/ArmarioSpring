@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.dam.armario.entidades.ropa.*;
 
-public class Outfits {
+public class Outfits{
     private String nombreOutfit;
     private ArrayList<Ropa> NuevoOutfit = new ArrayList<Ropa>();
     
@@ -19,8 +19,8 @@ public class Outfits {
     public ArrayList<Ropa> getNuevoOutfit() {
         return NuevoOutfit;
     }
-
-    public void setRopaBD(Ropa nuevaRopa) {
+    
+    public void addPrenda(Ropa nuevaRopa) {
         NuevoOutfit.add(nuevaRopa);
     }
 
