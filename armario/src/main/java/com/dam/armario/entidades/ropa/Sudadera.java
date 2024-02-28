@@ -2,13 +2,12 @@ package com.dam.armario.entidades.ropa;
 
 public class Sudadera extends Ropa{
 	private Boolean capucha; 
-	private String estampado;
+	private Boolean estampado;
 	
 	//constructors
-	public Sudadera( ) {
-		super();
-	}
-	public Sudadera(String color, String talla, String marca,  String material, String estilo, boolean capucha, String estampado) {
+	public Sudadera( ) {}
+	
+	public Sudadera(String color, String talla, String marca,  String material, String estilo, boolean capucha, Boolean estampado) {
 		super();
 		this.capucha = capucha;
 		this.estampado = estampado;
@@ -23,11 +22,11 @@ public class Sudadera extends Ropa{
         this.capucha = capucha;
     }
 
-	public String getEstampado (){
+	public Boolean getEstampado (){
         return estampado;
     }
 
-	public void setEstampado(String estampado) {
+	public void setEstampado(Boolean estampado) {
         this.estampado = estampado;
     }
 

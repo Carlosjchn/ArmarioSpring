@@ -1,16 +1,14 @@
 package com.dam.armario.entidades.ropa;
 
 public class Camiseta extends Ropa{
-	private String manga;
-	private String cuello; //redondo o de pico
-	private String estampado; 
+	private boolean manga;
+	private boolean cuello; //redondo o de pico
+	private boolean estampado; 
 
 	//CONTRUCTORS
-	public Camiseta () {
-			super();
-	}
+	public Camiseta () {}
 	
-	public Camiseta(String color, String talla, String marca, String material, String estilo, String manga, String cuello, String estampado){
+	public Camiseta(String color, String talla, String marca, String material, String estilo, boolean manga, boolean cuello, boolean estampado){
 		super(color, talla, marca, material, estilo);
 		this.manga = manga;
 		this.cuello = cuello;
@@ -20,24 +18,24 @@ public class Camiseta extends Ropa{
 	
 	//GETS AND SETS
 	
-		public String getMangaString(){
+		public boolean getMangaString(){
 			return manga;
         }
-		public void setMangaString(String manga){
+		public void setMangaString(boolean manga){
             this.manga = manga;
         }
 		
-        public String getCuelloString(){
+        public boolean getCuelloString(){
             return cuello;
         }
-		public void setCuelloString(String cuello){
+		public void setCuelloString(boolean cuello){
             this.cuello = cuello;
         }
 		
-        public String getEstampadoString(){
+        public boolean getEstampadoString(){
             return estampado;
         }
-		public void setEstampadoString(String estampado){
+		public void setEstampadoString(boolean estampado){
             this.estampado = estampado;
         }
 
