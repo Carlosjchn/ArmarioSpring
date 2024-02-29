@@ -10,7 +10,7 @@ public class Usuario {
     private String email;
     private String password;
     private String recuperar;
-    private int saldo;
+    private double saldo;
     private boolean Logueado = false;
 
     private ArrayList<Ropa> ropaBD = new ArrayList<Ropa>();
@@ -94,12 +94,16 @@ public class Usuario {
         return outfitsBD.get(index - 1);
     }
 
-    public int getSaldo() {
+    public double getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(int saldo) {
+    public void setSaldo(double saldo) {
         this.saldo = saldo;
+    }
+
+    public void añadirSaldo(String saldo){
+        this.saldo += Float.parseFloat(saldo);
     }
 
     public void setRopaBD(ArrayList<Ropa> ropaBD) {

@@ -51,15 +51,16 @@ public class ServicioUsuario implements InterfazGeneral {
         String opcion = menuUsuario.modificarPerfil(u);
         switch(opcion) {
             case "1": //Cambiar nombre de usuario
-            u.setNombre(menuUsuario.datosModificar("nombre de usuario"));
+            u.setNombre(menuUsuario.datosModificar(opcion));
             break;
             case "2": //Cambiar email
-            u.setEmail(menuUsuario.datosModificar("email"));
+            u.setEmail(menuUsuario.datosModificar(opcion));
             break;
             case "3": //Cambiar contraseña
-            u.setPassword(menuUsuario.datosModificar("password"));
+            u.setPassword(menuUsuario.datosModificar(opcion));
             break;
             case "4": //Añadir saldo
+            u.setSaldo(Double.parseDouble(menuUsuario.datosModificar(opcion)));
             break;
             default:
             System.out.println("Contraseña errónea.");
