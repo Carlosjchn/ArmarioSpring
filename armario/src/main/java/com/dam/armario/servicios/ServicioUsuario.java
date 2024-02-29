@@ -51,13 +51,13 @@ public class ServicioUsuario implements InterfazGeneral {
         String opcion = menuUsuario.modificarPerfil(u);
         switch(opcion) {
             case "1": //Cambiar nombre de usuario
-            u.setNombre(menuUsuario.datosModificar(u,"nombre de usuario"));
+            u.setNombre(menuUsuario.datosModificar("nombre de usuario"));
             break;
             case "2": //Cambiar email
-            u.setEmail(menuUsuario.datosModificar(u,"email"));
+            u.setEmail(menuUsuario.datosModificar("email"));
             break;
             case "3": //Cambiar contraseña
-            u.setPassword(menuUsuario.datosModificar(u,"password"));
+            u.setPassword(menuUsuario.datosModificar("password"));
             break;
             case "4": //Añadir saldo
             break;

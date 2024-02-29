@@ -31,27 +31,40 @@ public class MenuUsuario {
         }
     }
 
-    public String datosModificar(Usuario u, String tipoDato) {
-        System.out.println("Escribe tu nuevo " + tipoDato);
+    public String datosModificar(String opcion) {
+        System.out.println("Escribe tu nuevo " + opcion);
         String dato = "";
-        if(tipoDato.equalsIgnoreCase("password")) {
-            do {
-                System.out.println("La contraseña debe tener al menos 8 caracteres y contener al menos una letra minúscula, una letra mayúscula, un dígito y un carácter especial entre los especificados (@#$%^&+=!)");
-                dato=sc.next();
-                if(funcionComun.validarContrasena(dato) == false){
-                    System.out.println("Introduce una contraseña válida.");
-                }
-            } while (funcionComun.validarContrasena(dato) == false);
-        }else if(tipoDato.equalsIgnoreCase("email")){
-            do {
-                dato = sc.next();
-                if(funcionComun.validarCorreoElectronico(dato) == false){
-                    System.out.println("Introduce un correo válido.");
-                }
-            } while (funcionComun.validarCorreoElectronico(dato) == false);
+        if(opcion.equalsIgnoreCase("2")) {
+            dato = modificarEmail();
+        }else if(opcion.equalsIgnoreCase("3")){
+            dato = modificarPassword();
         }else {
             dato = sc.next();
         }
         return dato;
     }
+
+    public String modificarPassword() {
+        String dato;
+        do {
+            System.out.println("La contraseña debe tener al menos 8 caracteres y contener al menos una letra minúscula, una letra mayúscula, un dígito y un carácter especial entre los especificados (@#$%^&+=!)");
+            dato=sc.next();
+            if(funcionComun.validarContrasena(dato) == false){
+                System.out.println("Introduce una contraseña válida.");
+            }
+        } while (funcionComun.validarContrasena(dato) == false);
+        return dato;
+    }
+
+    public String modificarEmail(){
+        String dato;
+        do {
+            dato = sc.next();
+            if(funcionComun.validarCorreoElectronico(dato) == false){
+                System.out.println("Introduce un correo válido.");
+            }
+        } while (funcionComun.validarCorreoElectronico(dato) == false);
+        return dato;
+    }
+
 }
