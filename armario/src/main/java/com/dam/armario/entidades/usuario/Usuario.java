@@ -103,7 +103,7 @@ public class Usuario {
     }
 
     public void añadirSaldo(String saldo){
-        this.saldo += Float.parseFloat(saldo);
+        this.saldo += Double.parseDouble(saldo);
     }
 
     public void setRopaBD(ArrayList<Ropa> ropaBD) {

@@ -60,10 +60,10 @@ public class ServicioUsuario implements InterfazGeneral {
             u.setPassword(menuUsuario.datosModificar(opcion));
             break;
             case "4": //Añadir saldo
-            u.setSaldo(Double.parseDouble(menuUsuario.datosModificar(opcion)));
+            u.añadirSaldo(menuUsuario.datosModificar(opcion));
             break;
             default:
-            System.out.println("Contraseña errónea.");
+                menuUsuario.errorContraseña();
             
         }
     }

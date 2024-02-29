@@ -34,7 +34,7 @@ public class MenuUsuario {
 
     public String datosModificar(String opcion) {
         String dato = "";
-        switch(opcion){
+        switch (opcion) {
             case "1":
                 dato = modificarNombre();
             case "2":
@@ -47,7 +47,7 @@ public class MenuUsuario {
                 dato = añadirSaldo();
                 break;
             default:
-            break;
+                break;
         }
         return dato;
     }
@@ -85,17 +85,21 @@ public class MenuUsuario {
 
     public String añadirSaldo() {
         String saldo = "";
+        do {
             System.out.println("Introduce la cantidad a añadir:");
-            do {
-                if (sc.hasNextInt()) {
-                    Float numero = sc.nextFloat();
-                    saldo = numero + "";
-                }else{
-                    System.out.println("Numero no válido.");
-                }
-            } while (sc.hasNextInt() == false);
-            System.out.println("¡Has ingresado : " + saldo + " en tu cuenta!");
-            return saldo;
-        
+            if (sc.hasNextDouble()) {
+                Float numero = sc.nextFloat();
+                saldo = numero + "";
+            } else {
+                System.out.println("Numero no válido.");
+            }
+        } while (sc.hasNextDouble() == false);
+        System.out.println("¡Has ingresado : " + saldo + " en tu cuenta!");
+        return saldo;
+
+    }
+
+    public void errorContraseña(){
+        System.out.println("Contraseña errónea.");
     }
 }
