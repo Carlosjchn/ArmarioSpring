@@ -1,13 +1,14 @@
 package com.dam.armario.servicios;
 
 import com.dam.armario.entidades.usuario.*;
+import com.dam.armario.frontend.MenuUsuario;
 import com.dam.armario.repositorio.UsuarioBD;
 import com.dam.armario.servicios.interfaz.InterfazGeneral;
 
 import java.util.*;
 
 public class ServicioUsuario implements InterfazGeneral {
-    
+    MenuUsuario menuUsuario = new MenuUsuario();
 
     public void alta(ArrayList<String> datos, UsuarioBD listaUsers) {
         Usuario usuario = new Usuario(datos.get(0), datos.get(1), datos.get(2), datos.get(3));
@@ -46,7 +47,24 @@ public class ServicioUsuario implements InterfazGeneral {
     }
 
     public void mostrar(Usuario u) {
-
+        menuUsuario.verPerfil(u);
+        String opcion = menuUsuario.modificarPerfil(u);
+        switch(opcion) {
+            case "1": //Cambiar nombre de usuario
+            u.setNombre(menuUsuario.datosModificar(u,"nombre de usuario"));
+            break;
+            case "2": //Cambiar email
+            u.setEmail(menuUsuario.datosModificar(u,"email"));
+            break;
+            case "3": //Cambiar contraseña
+            u.setPassword(menuUsuario.datosModificar(u,"password"));
+            break;
+            case "4": //Añadir saldo
+            break;
+            default:
+            System.out.println("Contraseña errónea.");
+            
+        }
     }
 
 }

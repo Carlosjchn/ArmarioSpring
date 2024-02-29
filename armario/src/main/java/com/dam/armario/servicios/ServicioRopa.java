@@ -144,12 +144,6 @@ public class ServicioRopa implements InterfazGeneral {
     }
 
     
-
-    
-
-
-
-    
     public void guardarPrenda(Ropa prenda, UsuarioBD listaUsuario) {
         listaUsuario.buscarSesion().altaRopa(prenda);
     }

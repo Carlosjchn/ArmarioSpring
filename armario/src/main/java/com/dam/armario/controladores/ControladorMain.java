@@ -95,7 +95,7 @@ public class ControladorMain {
 
                         break;
                     case "4": // Perfil
-                        menuUsuario.verPerfil(listaUsuarios.buscarSesion());
+                        funcionesUser.mostrar(listaUsuarios.buscarSesion());
                         break;
                     case "5": // Cerrar sesion.
                         listaUsuarios.cerrarSesion();
