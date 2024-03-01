@@ -5,7 +5,9 @@ public abstract class Ropa {
 	protected String talla;
 	protected String marca;
 	protected String material;
+	protected double precio;
 	protected String estilo;  // formal o sport
+
 
 	//CONSTRUCTORS
 	public Ropa() {
@@ -45,13 +47,26 @@ public abstract class Ropa {
 		this.material = material;
 	}
 
+	
 
 
 	//TO STRING
 	@Override
 	public String toString() {
 		return "color=" + color + ", talla=" + talla + ", marca=" + marca + ", material=" + material ;
-	}	
+	}
+    public double getPrecio() {
+        return precio;
+    }
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+    public String getEstilo() {
+        return estilo;
+    }
+    public void setEstilo(String estilo) {
+        this.estilo = estilo;
+    }	
 	
 	
 	

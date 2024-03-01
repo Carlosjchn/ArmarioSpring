@@ -48,6 +48,10 @@ public class ServicioUsuario implements InterfazGeneral {
 
     public void mostrar(Usuario u) {
         menuUsuario.verPerfil(u);
+    }
+
+    public void modificarPerfil(Usuario u) {
+        mostrar(u);
         String opcion = menuUsuario.modificarPerfil(u);
         switch(opcion) {
             case "1": //Cambiar nombre de usuario
@@ -68,4 +72,7 @@ public class ServicioUsuario implements InterfazGeneral {
         }
     }
 
+    public void eliminar(Usuario u){
+        
+    }
 }

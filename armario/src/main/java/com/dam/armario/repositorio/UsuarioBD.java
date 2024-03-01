@@ -21,13 +21,21 @@ public class UsuarioBD{
 
     public Usuario buscarUsuario(String nombre, String contraseña) {
         for (Usuario u : usuarioBD) {
-            if (nombre.equals(u.getNombre()) && contraseña.equals(u.getPassword())) {
+            if (nombre.equalsIgnoreCase(u.getNombre()) && contraseña.equals(u.getPassword())) {
                return u;
             }
         }
         return null;
     }
 
+    public Usuario buscarNombre (String nombre){
+        for (Usuario u : usuarioBD) {
+            if (nombre.equalsIgnoreCase(u.getNombre())) {
+               return u;
+            }
+        }
+        return null;
+    }
     public void setFalse(){
         for(Usuario u : usuarioBD){
             u.setLogueado(false);
@@ -68,5 +76,17 @@ public class UsuarioBD{
         return vendedores;
     }
 
+    public boolean comprarPrenda(Usuario vendedor, int numPrenda){
+        Usuario comprador = buscarSesion();
+        if (comprador.getSaldo()-vendedor.getRopaBD().get(numPrenda).getPrecio() >= 0){
+            comprador.setSaldo(comprador.getSaldo()-vendedor.getRopaBD().get(numPrenda-1).getPrecio());
+            comprador.altaRopa(vendedor.getRopaBD().get(numPrenda-1));
+            vendedor.setSaldo(vendedor.getSaldo()+vendedor.getRopaBD().get(numPrenda-1).getPrecio());
+            vendedor.removePrenda(numPrenda-1);
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 }

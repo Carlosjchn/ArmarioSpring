@@ -3,7 +3,9 @@ package com.dam.armario.entidades.ropa;
 public class Zapatos extends Ropa{
 	
 	//constructors
-	public Zapatos() {}
+	public Zapatos() {
+		super.precio=0;
+	}
 	
 	public Zapatos (String color, String talla, String marca,  String material, String estilo) {
 		super(color, talla, marca, material, estilo);

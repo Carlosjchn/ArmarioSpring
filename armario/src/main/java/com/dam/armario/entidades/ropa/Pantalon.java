@@ -13,6 +13,7 @@ public class Pantalon extends Ropa{
 		} else if (longitud.equals("2")) {
 			this.longitud = false;
 		}
+		super.precio=0;
 	}
 
 	public boolean getLongitud() {

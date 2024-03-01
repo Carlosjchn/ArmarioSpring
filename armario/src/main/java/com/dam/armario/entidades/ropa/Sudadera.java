@@ -19,7 +19,7 @@ public class Sudadera extends Ropa{
 		}else if (estampado.equals("2")) {
 			this.estampado = false;
 		}
-		
+		super.precio=0;
 	}
 	//GETS AND SETS
 	

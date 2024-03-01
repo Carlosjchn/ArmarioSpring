@@ -13,6 +13,7 @@ public class Abrigo extends Ropa{
 		} else if (capucha.equals("2")) {
 			this.capucha= false;
 		}
+		super.precio=0;
 	}
 
 	//GETS AND SETS

@@ -11,13 +11,14 @@ public class ServicioRopa implements InterfazGeneral {
     MenuRopa menuRopa = new MenuRopa();
 
     public void alta(ArrayList<String> opcionPrenda, UsuarioBD listaUsuarios) {
-        Ropa nuevaPrenda = crearObjeto(opcionPrenda);
-        elegirColor(nuevaPrenda, opcionPrenda);
-        elegirTalla(nuevaPrenda, opcionPrenda);
-        elegirMarca(nuevaPrenda, opcionPrenda);
-        elegirMaterial(nuevaPrenda, opcionPrenda);
-
-        guardarPrenda(nuevaPrenda, listaUsuarios);
+        if (Integer.parseInt(opcionPrenda.get(0)) < 8) {
+            Ropa nuevaPrenda = crearObjeto(opcionPrenda);
+            elegirColor(nuevaPrenda, opcionPrenda);
+            elegirTalla(nuevaPrenda, opcionPrenda);
+            elegirMarca(nuevaPrenda, opcionPrenda);
+            elegirMaterial(nuevaPrenda, opcionPrenda);
+            guardarPrenda(nuevaPrenda, listaUsuarios);
+        }
     }
 
     public Ropa crearObjeto(ArrayList<String> opcionPrenda) {
@@ -39,7 +40,7 @@ public class ServicioRopa implements InterfazGeneral {
                 Ropa pantalon = new Pantalon(opcionPrenda.get(5));
                 return pantalon;
             case "6":
-                Ropa sudadera = new Sudadera(opcionPrenda.get(5),opcionPrenda.get(6));
+                Ropa sudadera = new Sudadera(opcionPrenda.get(5), opcionPrenda.get(6));
                 return sudadera;
             case "7":
                 Ropa zapato = new Zapatos();
@@ -143,7 +144,6 @@ public class ServicioRopa implements InterfazGeneral {
         a.setMaterial(material);
     }
 
-    
     public void guardarPrenda(Ropa prenda, UsuarioBD listaUsuario) {
         listaUsuario.buscarSesion().altaRopa(prenda);
     }
@@ -152,7 +152,8 @@ public class ServicioRopa implements InterfazGeneral {
         if (u.getRopaBD().isEmpty()) {
             menuRopa.noHayPrendas();
         } else {
-            int iteraciones=0;
+            int iteraciones = 0;
+            menuRopa.tuRopa();
             for (Ropa prenda : u.getRopaBD()) {
                 iteraciones++;
                 menuRopa.imprimirPrenda(prenda, iteraciones);
@@ -160,4 +161,11 @@ public class ServicioRopa implements InterfazGeneral {
         }
     }
 
+    public void eliminar(Usuario u){
+        mostrar(u);
+        int numeroRopa = menuRopa.eliminarRopa(u);
+        u.removePrenda(numeroRopa);
+    }
+
+   
 }

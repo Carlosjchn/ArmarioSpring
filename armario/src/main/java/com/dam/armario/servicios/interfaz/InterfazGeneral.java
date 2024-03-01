@@ -8,4 +8,5 @@ import com.dam.armario.repositorio.UsuarioBD;
 public interface InterfazGeneral {
     public void alta(ArrayList<String> opcionPrenda, UsuarioBD listaUsuarios);
     public void mostrar(Usuario u);
+    public void eliminar(Usuario u);
 }

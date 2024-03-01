@@ -16,8 +16,6 @@ public class Usuario {
     private ArrayList<Ropa> ropaBD = new ArrayList<Ropa>();
     private ArrayList<Outfits> outfitsBD = new ArrayList<Outfits>();
 
-    private ArrayList<Ropa> ropaVenta = new ArrayList<Ropa>();
-    private ArrayList<Outfits> outfitsVenta = new ArrayList<Outfits>();
 
     public Usuario(String nombre, String email, String password, String recuperar) {
         this.nombre = nombre;
@@ -114,22 +112,6 @@ public class Usuario {
         this.outfitsBD = outfitsBD;
     }
 
-    public ArrayList<Ropa> getRopaVenta() {
-        return ropaVenta;
-    }
-
-    public void setRopaVenta(ArrayList<Ropa> ropaVenta) {
-        this.ropaVenta = ropaVenta;
-    }
-
-    public ArrayList<Outfits> getOutfitsVenta() {
-        return outfitsVenta;
-    }
-
-    public void setOutfitsVenta(ArrayList<Outfits> outfitsVenta) {
-        this.outfitsVenta = outfitsVenta;
-    }
-
     public String cifrarPassword() {
         String passwordCifrada = "";
         for (int i = 0; i < password.length(); i++) {
@@ -142,4 +124,25 @@ public class Usuario {
         return passwordCifrada;
     }
 
+    public void altaPrendaVenta(String saldo){
+        setSaldo(Double.parseDouble(saldo));
+    }
+
+    public void removeOutfit(int index){
+        outfitsBD.remove(index);
+    }
+
+    public void venderPrenda(String numPrenda, Double precio){
+        ropaBD.get(Integer.parseInt(numPrenda)-1).setPrecio(precio);
+    }
+
+    public void retirarPrenda(String numPrenda){
+        ropaBD.get(Integer.parseInt(numPrenda)-1).setPrecio(0);
+    }
+
+    public void removePrenda(int index){
+        ropaBD.remove(index);
+    }
+
+    
 }

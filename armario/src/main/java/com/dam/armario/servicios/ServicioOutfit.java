@@ -58,4 +58,10 @@ public class ServicioOutfit implements InterfazGeneral {
     public void guardarOutfit(Outfits oufit, UsuarioBD listaUsuario) {
         listaUsuario.buscarSesion().altaOutfit(oufit);
     }
+
+    public void eliminar(Usuario u){
+        mostrar(u);
+        int numeroOutfit = menuOutfit.eliminarOutfit(u);
+        u.removeOutfit(numeroOutfit);
+    }
 }

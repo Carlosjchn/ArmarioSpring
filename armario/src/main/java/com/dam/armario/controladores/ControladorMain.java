@@ -15,10 +15,12 @@ public class ControladorMain {
     MenuRopa menuRopa = new MenuRopa();
     MenuOutfit menuOutfit = new MenuOutfit();
     MenuUsuario menuUsuario = new MenuUsuario();
+    MenuTienda menuTienda = new MenuTienda();
 
     ServicioUsuario funcionesUser = new ServicioUsuario(); // Servicios de los objetos
     ServicioRopa funcionesRopa = new ServicioRopa();
     ServicioOutfit funcionesOutfit = new ServicioOutfit();
+    ServicioTienda funcionesTienda = new ServicioTienda();
 
     public void inicio() {
         boolean inicio = true;
@@ -70,6 +72,9 @@ public class ControladorMain {
                                 ArrayList<String> configPrenda = menuRopa.menuAñadirPrenda();
                                 funcionesRopa.alta(configPrenda, listaUsuarios);
                                 break;
+                            case "3": // eliminar Prenda
+                                funcionesRopa.eliminar(listaUsuarios.buscarSesion());
+                                break;
                             default: break;
                         }
                         break;
@@ -88,14 +93,26 @@ public class ControladorMain {
                                 ArrayList<String> configOutfit = menuOutfit.crearOutfit(listaUsuarios);
                                 funcionesOutfit.alta(configOutfit, listaUsuarios);
                                 break;
+                            case "3": //eliminar outfit
+                                funcionesOutfit.eliminar(listaUsuarios.buscarSesion());
+                                break;
                             default: break;
                         }
                         break;
                     case "3": // Tienda
-
+                        opcion = menuTienda.Tienda(listaUsuarios);
+                        switch(opcion){
+                            case "1": // ver productos
+                            funcionesTienda.comprarPrenda(listaUsuarios);
+                            break;
+                            case "2": // ver tienda personal
+                            funcionesTienda.tiendaPersonal(listaUsuarios);
+                            break;
+                            default: break;
+                        }
                         break;
                     case "4": // Perfil
-                        funcionesUser.mostrar(listaUsuarios.buscarSesion());
+                        funcionesUser.modificarPerfil(listaUsuarios.buscarSesion());
                         break;
                     case "5": // Cerrar sesion.
                         listaUsuarios.cerrarSesion();

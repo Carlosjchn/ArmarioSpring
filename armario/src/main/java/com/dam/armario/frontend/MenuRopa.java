@@ -3,6 +3,7 @@ package com.dam.armario.frontend;
 import java.util.*;
 
 import com.dam.armario.entidades.ropa.Ropa;
+import com.dam.armario.entidades.usuario.Usuario;
 
 public class MenuRopa {
     Scanner sc = new Scanner(System.in);
@@ -11,7 +12,8 @@ public class MenuRopa {
         System.out.println("Menú de Ropa");
         System.out.println("\t 1. Ver prendas");
         System.out.println("\t 2. Añadir prenda");
-        System.out.println("\t 3. Salir");
+        System.out.println("\t 3. Eliminar prenda");
+        System.out.println("\t 4. Salir");
         String opcion;
         do {
             System.out.println("Elige una opcion: \t");
@@ -23,6 +25,22 @@ public class MenuRopa {
 
     public ArrayList<String> menuAñadirPrenda() {
         ArrayList<String> opcion = new ArrayList<String>();
+
+        opcion = elegirRopa(opcion);
+        if (Integer.parseInt(opcion.get(0)) < 8) {
+            opcion = elegirColor(opcion);
+            opcion = elegirTalla(opcion);
+            opcion = elegirMarca(opcion);
+            opcion = elegirMaterial(opcion);
+            // hecho por josca, chamo borralo to si esta mal
+            opcion = elegirAtributos(opcion);
+            return opcion;
+        } else {
+            return null;
+        }
+    }
+
+    public ArrayList<String> elegirRopa(ArrayList<String> opcion) {
         do {
             System.out.println("Eliga un tipo de prenda:");
             System.out.println("\t 1. Abrigo");
@@ -35,7 +53,10 @@ public class MenuRopa {
             System.out.println("\t 8. Salir");
             opcion.add(0, sc.next());
         } while (Integer.parseInt(opcion.get(0)) < 1 && Integer.parseInt(opcion.get(0)) > 7);
+        return opcion;
+    }
 
+    public ArrayList<String> elegirColor(ArrayList<String> opcion) {
         do {
             System.out.println("Elige el color de la prenda:");
             System.out.println("\t 1. Negro");
@@ -46,6 +67,10 @@ public class MenuRopa {
             System.out.println("\t 6. Multicolor");
             opcion.add(1, sc.next());
         } while (Integer.parseInt(opcion.get(1)) < 1 && Integer.parseInt(opcion.get(1)) > 6);
+        return opcion;
+    }
+
+    public ArrayList<String> elegirTalla(ArrayList<String> opcion) {
         do {
             if (opcion.get(0).equals("7")) {
                 System.out.println("Elige la talla de tu prenda:");
@@ -65,10 +90,18 @@ public class MenuRopa {
                 opcion.add(2, sc.next());
             }
         } while (Integer.parseInt(opcion.get(2)) < 1 && Integer.parseInt(opcion.get(2)) > 5);
+        return opcion;
+    }
+
+    public ArrayList<String> elegirMarca(ArrayList<String> opcion) {
         do {
             System.out.println("Escribe la marca de tu prenda:");
             opcion.add(3, sc.next());
         } while (opcion.get(3) == null);
+        return opcion;
+    }
+
+    public ArrayList<String> elegirMaterial(ArrayList<String> opcion) {
         do {
             System.out.println("Elige el material de tu prenda:");
             System.out.println("\t 1. Algodón");
@@ -78,8 +111,24 @@ public class MenuRopa {
             System.out.println("\t 5. Cuero");
             opcion.add(4, sc.next());
         } while (Integer.parseInt(opcion.get(4)) < 1 && Integer.parseInt(opcion.get(4)) > 5);
+        return opcion;
+    }
+    /*
+     * orden posiciones arraylist:
+     * 0. Eleccion de la prenda
+     * 1. Color
+     * 2. Talla
+     * 3. Marca
+     * 4. Material
+     * 5. Capucha
+     * 6. Mangas
+     * 7. Estampado
+     * 8. Cuello
+     * 9. Tela
+     * 10. Longitud pantalon
+     */
 
-        // hecho por josca, chamo borralo to si esta mal
+    public ArrayList<String> elegirAtributos(ArrayList<String> opcion) {
         switch (opcion.get(0)) {
             case "1":
                 System.out.println("Elige si el abrigo tiene capucha o no: ");
@@ -138,33 +187,30 @@ public class MenuRopa {
                 opcion.add(6, sc.next());
                 break;
         }
-
         return opcion;
     }
-
-    /*
-     * orden posiciones arraylist:
-     * 0. Eleccion de la prenda
-     * 1. Color
-     * 2. Talla
-     * 3. Marca
-     * 4. Material
-     * 5. Capucha
-     * 6. Mangas
-     * 7. Estampado
-     * 8. Cuello
-     * 9. Tela
-     * 10. Longitud pantalon
-     * 
-     * 
-     * 
-     */
 
     public void imprimirPrenda(Ropa prenda, int iteraciones) {
         System.out.println("\t " + iteraciones + ". " + prenda);
     }
 
+    public void tuRopa() {
+        System.out.println("Tus prendas registradas son:");
+    }
+
     public void noHayPrendas() {
         System.out.println("Aún no tienes prendas registradas");
     }
+
+    public int eliminarRopa(Usuario u){
+        int opcion = 0;
+        do {
+            System.out.println("Elige el número de la prenda que quieres eliminar: ");
+            if (sc.hasNextInt()) {
+                opcion = sc.nextInt();
+            }
+        } while (sc.hasNextInt() == false);
+        return opcion;
+    }
+
 }

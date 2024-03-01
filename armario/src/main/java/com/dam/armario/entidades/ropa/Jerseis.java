@@ -20,7 +20,7 @@ public class Jerseis extends Ropa{
 			this.tipoDeTela= false;
 		}
 	
-	
+		super.precio=0;
 	}
 
 	//GETS AND SETS

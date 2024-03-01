@@ -27,7 +27,7 @@ public class Camiseta extends Ropa{
 			this.estampado= false;
 		}
 
-
+		super.precio=0;
 	}
 	
 	
