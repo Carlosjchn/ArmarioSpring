@@ -11,19 +11,23 @@ public class ServicioTienda {
 
     public void tiendaPersonal(UsuarioBD listaUsarios) {
         String opcion = menuTienda.tiendaPersonal(listaUsarios);
-        switch (opcion) {
-            case "1":
-                menuTienda.mostrarPrendasVenta(listaUsarios.buscarSesion());
-                break;
-            case "2":
-                String numPrenda = menuTienda.ponerPrendaVenta(listaUsarios);
-                double precioPrenda = menuTienda.ponerPrecio();
-                venderPrenda(listaUsarios.buscarSesion(), numPrenda, precioPrenda);
-                break;
-            case "3":
-                String eliminarPrenda = menuTienda.eliminarVenta(listaUsarios);
-                listaUsarios.buscarSesion().retirarPrenda(eliminarPrenda);
-                break;
+        try {
+            switch (opcion) {
+                case "1":
+                    menuTienda.mostrarPrendasVenta(listaUsarios.buscarSesion());
+                    break;
+                case "2":
+                    String numPrenda = menuTienda.ponerPrendaVenta(listaUsarios);
+                    double precioPrenda = menuTienda.ponerPrecio();
+                    venderPrenda(listaUsarios.buscarSesion(), numPrenda, precioPrenda);
+                    break;
+                case "3":
+                    String eliminarPrenda = menuTienda.eliminarVenta(listaUsarios);
+                    listaUsarios.buscarSesion().retirarPrenda(eliminarPrenda);
+                    break;
+            }
+        } catch (Exception e) {
+
         }
     }
 

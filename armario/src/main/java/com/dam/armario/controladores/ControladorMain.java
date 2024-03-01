@@ -36,8 +36,6 @@ public class ControladorMain {
                         String datosLogin[] = menuInicio.datosLogin();
                         if(funcionesUser.logInUsuario(listaUsuarios, datosLogin)==true){
                             menuInicio.loginCorrecto();
-                        }else{
-                            menuInicio.loginError();
                         }
                         break;
                     case "3": // recuperar usuario

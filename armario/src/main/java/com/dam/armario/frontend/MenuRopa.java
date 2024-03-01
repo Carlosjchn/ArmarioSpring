@@ -204,12 +204,12 @@ public class MenuRopa {
 
     public int eliminarRopa(Usuario u){
         int opcion = 0;
-        do {
+        
             System.out.println("Elige el número de la prenda que quieres eliminar: ");
             if (sc.hasNextInt()) {
                 opcion = sc.nextInt();
             }
-        } while (sc.hasNextInt() == false);
+        
         return opcion;
     }
 

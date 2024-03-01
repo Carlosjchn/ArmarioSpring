@@ -73,7 +73,11 @@ public class Usuario {
     }
 
     public Ropa getPrenda(int index) {
+        try{
         return ropaBD.get(index);
+        }catch(Exception e){
+            return null;
+        }
     }
 
     public void altaRopa(Ropa ropa) {
@@ -124,12 +128,11 @@ public class Usuario {
         return passwordCifrada;
     }
 
-    public void altaPrendaVenta(String saldo){
-        setSaldo(Double.parseDouble(saldo));
-    }
-
     public void removeOutfit(int index){
-        outfitsBD.remove(index);
+        try{
+        outfitsBD.remove(index-1);
+        }catch(Exception e){
+        }
     }
 
     public void venderPrenda(String numPrenda, Double precio){
@@ -141,7 +144,10 @@ public class Usuario {
     }
 
     public void removePrenda(int index){
-        ropaBD.remove(index);
+        try{
+        ropaBD.remove(index-1);
+        }catch(Exception e){
+        }
     }
 
     

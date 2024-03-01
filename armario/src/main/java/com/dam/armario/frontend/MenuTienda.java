@@ -67,7 +67,7 @@ public class MenuTienda {
         } else {
             for (Ropa prendaVenta : u.getRopaBD()) {
                 if (prendaVenta.getPrecio() != 0) {
-                    int i = 0;
+                    int i = 1;
                     System.out.println(i++ + ". " + prendaVenta + " " + prendaVenta.getPrecio() + " euros");
                 }
             }

@@ -77,12 +77,12 @@ public class MenuOutfit {
 
     public int eliminarOutfit(Usuario u) {
         int opcion = 0;
-        do {
+        
             System.out.println("Elige el número del outfit que quieres eliminar: ");
             if (sc.hasNextInt()) {
                 opcion = sc.nextInt();
             }
-        } while (sc.hasNextInt() == false);
+       
         return opcion;
     }
 }
