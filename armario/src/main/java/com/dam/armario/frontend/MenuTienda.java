@@ -6,13 +6,11 @@ import java.util.*;
 import com.dam.armario.entidades.ropa.Ropa;
 import com.dam.armario.entidades.usuario.Usuario;
 import com.dam.armario.repositorio.UsuarioBD;
-import com.dam.armario.servicios.ServicioOutfit;
 import com.dam.armario.servicios.ServicioRopa;
-import com.dam.armario.servicios.ServicioTienda;
+
 
 public class MenuTienda {
     Scanner sc = new Scanner(System.in);
-    ServicioTienda funcionesTienda = new ServicioTienda();
     ServicioRopa funcionesRopa = new ServicioRopa();
 
     public String Tienda(UsuarioBD listaUsuarios) {
@@ -29,20 +27,6 @@ public class MenuTienda {
         return opcion;
     }
 
-    public void verOfertas(UsuarioBD listaUsuarios) {
-        int iteraciones = 0;
-        ArrayList<Usuario> vendedores = listaUsuarios.getVendedores();
-        ServicioOutfit funcionesOutfit = new ServicioOutfit();
-        for (Usuario u : vendedores) {
-            iteraciones++;
-            System.out.println(iteraciones + " - " + u.getNombre());
-        }
-        String numeroOpcion = sc.next();
-        Usuario vendedor = vendedores.get(Integer.parseInt(numeroOpcion) - 1);
-        funcionesOutfit.mostrarAlaVenta(vendedor);
-        numeroOpcion = sc.next();
-        funcionesOutfit.verOutfit(numeroOpcion, vendedor);
-    }
 
     public String tiendaPersonal(UsuarioBD listaUsuarios) {
         String opcion;
@@ -78,7 +62,10 @@ public class MenuTienda {
     }
 
     public void mostrarPrendasVenta(Usuario u) {
-        System.out.println("Tus prendas a la venta: ");
+        System.out.println("Las prendas a la venta: ");
+        if (u == null){
+            System.out.println("Error");
+        }else{
         for (Ropa prendaVenta : u.getRopaBD()) {
             if (prendaVenta.getPrecio() != 0) {
                 int i = 0;
@@ -86,13 +73,18 @@ public class MenuTienda {
             }
         }
     }
+    }
 
     public Usuario comprarVendedor(UsuarioBD listaUsuarios) {
         System.out.println(listaUsuarios.getVendedores());
         System.out.println("Escribe el nombre del usuario que quieres ver: ");
         String vendedor = sc.next();
         Usuario usuarioVendedor = listaUsuarios.buscarNombre(vendedor);
-        return usuarioVendedor;
+        if (listaUsuarios.buscarNombre(vendedor) != null){
+            return usuarioVendedor;
+        }else {
+            return null;
+        }
     }
 
     public int comprarPrenda(Usuario usuarioVendedor){
@@ -117,4 +109,5 @@ public class MenuTienda {
         String numPrenda = sc.next();
         return numPrenda;
     }
+    
 }
