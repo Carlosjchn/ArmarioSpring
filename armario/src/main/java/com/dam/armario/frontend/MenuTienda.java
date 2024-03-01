@@ -2,12 +2,12 @@ package com.dam.armario.frontend;
 
 import java.util.*;
 
-
 import com.dam.armario.entidades.ropa.Ropa;
 import com.dam.armario.entidades.usuario.Usuario;
+import com.dam.armario.excepciones.CompraPrendaExcepcion;
+import com.dam.armario.excepciones.SaldoExcepcion;
 import com.dam.armario.repositorio.UsuarioBD;
 import com.dam.armario.servicios.ServicioRopa;
-
 
 public class MenuTienda {
     Scanner sc = new Scanner(System.in);
@@ -27,7 +27,6 @@ public class MenuTienda {
         return opcion;
     }
 
-
     public String tiendaPersonal(UsuarioBD listaUsuarios) {
         String opcion;
         try {
@@ -42,7 +41,7 @@ public class MenuTienda {
                 opcion = sc.next();
             } while (Integer.parseInt(opcion) < 1 || Integer.parseInt(opcion) > 4);
             return opcion;
-            
+
         } catch (Exception e) {
             return null;
         }
@@ -55,7 +54,7 @@ public class MenuTienda {
         return numeroPrenda;
     }
 
-    public double ponerPrecio(){
+    public double ponerPrecio() {
         System.out.println("Introduce el precio de la prenda: ");
         double precio = sc.nextDouble();
         return precio;
@@ -63,16 +62,16 @@ public class MenuTienda {
 
     public void mostrarPrendasVenta(Usuario u) {
         System.out.println("Las prendas a la venta: ");
-        if (u == null){
+        if (u == null) {
             System.out.println("Error");
-        }else{
-        for (Ropa prendaVenta : u.getRopaBD()) {
-            if (prendaVenta.getPrecio() != 0) {
-                int i = 0;
-                System.out.println(i++ + ". " + prendaVenta + " " + prendaVenta.getPrecio() + " euros");
+        } else {
+            for (Ropa prendaVenta : u.getRopaBD()) {
+                if (prendaVenta.getPrecio() != 0) {
+                    int i = 0;
+                    System.out.println(i++ + ". " + prendaVenta + " " + prendaVenta.getPrecio() + " euros");
+                }
             }
         }
-    }
     }
 
     public Usuario comprarVendedor(UsuarioBD listaUsuarios) {
@@ -80,34 +79,34 @@ public class MenuTienda {
         System.out.println("Escribe el nombre del usuario que quieres ver: ");
         String vendedor = sc.next();
         Usuario usuarioVendedor = listaUsuarios.buscarNombre(vendedor);
-        if (listaUsuarios.buscarNombre(vendedor) != null){
+        if (listaUsuarios.buscarNombre(vendedor) != null) {
             return usuarioVendedor;
-        }else {
+        } else {
             return null;
         }
     }
 
-    public int comprarPrenda(Usuario usuarioVendedor){
-        if (usuarioVendedor != null) {
-            System.out.println("Vendedor no encontrado:");
-        } else {
+    public int comprarPrenda (Usuario usuarioVendedor) throws CompraPrendaExcepcion {
+        try {
             mostrarPrendasVenta(usuarioVendedor);
             System.out.println("Elige la prenda que quieras comprar");
             int numeroPrenda = sc.nextInt();
             return numeroPrenda;
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return 0;
         }
-        return 0;
     }
 
-    public void errorCompra(){
+    public void errorCompra() {
         System.out.println("Saldo insuficiente.");
     }
 
-    public String eliminarVenta(UsuarioBD listaUsuarios){
+    public String eliminarVenta(UsuarioBD listaUsuarios) {
         mostrarPrendasVenta(listaUsuarios.buscarSesion());
         System.out.println("Elige la prenda que quieras eliminar:");
         String numPrenda = sc.next();
         return numPrenda;
     }
-    
+
 }

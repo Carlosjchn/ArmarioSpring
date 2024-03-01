@@ -1,6 +1,8 @@
 package com.dam.armario.servicios;
 
 import com.dam.armario.entidades.usuario.Usuario;
+import com.dam.armario.excepciones.CompraPrendaExcepcion;
+import com.dam.armario.excepciones.SaldoExcepcion;
 import com.dam.armario.frontend.MenuTienda;
 import com.dam.armario.repositorio.UsuarioBD;
 
@@ -30,11 +32,13 @@ public class ServicioTienda {
     }
 
     public void comprarPrenda(UsuarioBD listaUsuarios) {
-        Usuario vendedor = menuTienda.comprarVendedor(listaUsuarios);
-        int numeroPrenda = menuTienda.comprarPrenda(vendedor);
-        if (listaUsuarios.comprarPrenda(vendedor, numeroPrenda) == false) {
-            menuTienda.errorCompra();
+        try {
+            Usuario vendedor = menuTienda.comprarVendedor(listaUsuarios);
+            int numeroPrenda = menuTienda.comprarPrenda(vendedor);
+            listaUsuarios.comprarPrenda(vendedor, numeroPrenda);
+        } catch (SaldoExcepcion | CompraPrendaExcepcion e) {
+            System.err.println(e.getMessage());
         }
     }
- 
+
 }

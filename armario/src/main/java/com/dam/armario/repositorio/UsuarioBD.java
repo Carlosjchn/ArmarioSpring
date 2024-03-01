@@ -3,6 +3,8 @@ package com.dam.armario.repositorio;
 import java.util.ArrayList;
 
 import com.dam.armario.entidades.usuario.*;
+import com.dam.armario.excepciones.LoginExcepcion;
+import com.dam.armario.excepciones.SaldoExcepcion;
 // ENVIAR LA BASE DE DATOS A CADA CONTROLADOR PARA QUE SE ACTUALIZE.
 public class UsuarioBD{
     private ArrayList<Usuario> usuarioBD = new ArrayList<Usuario>();
@@ -19,13 +21,13 @@ public class UsuarioBD{
         usuarioBD.remove(u);
     }
 
-    public Usuario buscarUsuario(String nombre, String contraseña) {
+    public Usuario buscarUsuario(String nombre, String contraseña) throws LoginExcepcion {
         for (Usuario u : usuarioBD) {
             if (nombre.equalsIgnoreCase(u.getNombre()) && contraseña.equals(u.getPassword())) {
                return u;
             }
         }
-        return null;
+        throw new LoginExcepcion();
     }
 
     public Usuario buscarNombre (String nombre){
@@ -76,7 +78,7 @@ public class UsuarioBD{
         return vendedores;
     }
 
-    public boolean comprarPrenda(Usuario vendedor, int numPrenda){
+    public boolean comprarPrenda (Usuario vendedor, int numPrenda) throws SaldoExcepcion{
         Usuario comprador = buscarSesion();
         if (comprador.getSaldo()-vendedor.getRopaBD().get(numPrenda).getPrecio() >= 0){
             comprador.setSaldo(comprador.getSaldo()-vendedor.getRopaBD().get(numPrenda-1).getPrecio());
