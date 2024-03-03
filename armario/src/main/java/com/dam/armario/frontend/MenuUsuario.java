@@ -3,6 +3,7 @@ package com.dam.armario.frontend;
 import java.util.*;
 
 import com.dam.armario.entidades.usuario.Usuario;
+import com.dam.armario.excepciones.ExcepcionPass;
 import com.dam.armario.servicios.ServicioComun;
 
 public class MenuUsuario {
@@ -23,14 +24,10 @@ public class MenuUsuario {
     public String modificarPerfil(Usuario u) {
         System.out.println("Elige que quieres modificar:");
         String opcion = sc.next();
-        System.out.println("Escribe tu contraseña:");
-        String contra = sc.next();
-        if (contra.equalsIgnoreCase(u.getPassword())) {
-            return opcion;
-        } else {
-            return null;
-        }
+        return opcion;
     }
+
+    
 
     public String datosModificar(String opcion) {
         String dato = "";
@@ -99,7 +96,13 @@ public class MenuUsuario {
 
     }
 
-    public void errorContraseña(){
-        System.out.println("Contraseña errónea.");
+    public void checkPass(Usuario u) throws ExcepcionPass{
+        System.out.println("Introduce tu contraseña actual: ");
+        String contraseña = sc.next();
+        if(u.checkPass(contraseña)){
+            System.out.println("Contraseña correcta.");
+        }else{
+            throw new ExcepcionPass();
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.dam.armario.servicios;
 
 import com.dam.armario.entidades.usuario.*;
+import com.dam.armario.excepciones.ExcepcionPass;
 import com.dam.armario.excepciones.LoginExcepcion;
 import com.dam.armario.frontend.MenuUsuario;
 import com.dam.armario.repositorio.UsuarioBD;
@@ -17,10 +18,10 @@ public class ServicioUsuario implements InterfazGeneral {
     }
 
     public void eliminarUsuario(UsuarioBD listaUsers, String[] datos) {
-       try {
-        Usuario a = listaUsers.buscarUsuario(datos[0], datos[1]);
+        try {
+            Usuario a = listaUsers.buscarUsuario(datos[0], datos[1]);
             listaUsers.eliminarUsuario(a);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
@@ -36,7 +37,6 @@ public class ServicioUsuario implements InterfazGeneral {
             System.err.println(e.getMessage());
             return false;
         }
-        
 
     }
 
@@ -59,26 +59,31 @@ public class ServicioUsuario implements InterfazGeneral {
     public void modificarPerfil(Usuario u) {
         mostrar(u);
         String opcion = menuUsuario.modificarPerfil(u);
-        switch(opcion) {
-            case "1": //Cambiar nombre de usuario
-            u.setNombre(menuUsuario.datosModificar(opcion));
-            break;
-            case "2": //Cambiar email
-            u.setEmail(menuUsuario.datosModificar(opcion));
-            break;
-            case "3": //Cambiar contraseña
-            u.setPassword(menuUsuario.datosModificar(opcion));
-            break;
-            case "4": //Añadir saldo
-            u.añadirSaldo(menuUsuario.datosModificar(opcion));
-            break;
-            default:
-                menuUsuario.errorContraseña();
-            
+        try {
+            switch (opcion) {
+                case "1": // Cambiar nombre de usuario
+                    
+                    u.setNombre(menuUsuario.datosModificar(opcion));
+                    break;
+                case "2": // Cambiar email
+                    u.setEmail(menuUsuario.datosModificar(opcion));
+                    break;
+                case "3": // Cambiar contraseña
+                    u.setPassword(menuUsuario.datosModificar(opcion));
+                    break;
+                case "4": // Añadir saldo
+                    u.añadirSaldo(menuUsuario.datosModificar(opcion));
+                    break;
+                default:
+                    break;
+            }
+
+        } catch (ExcepcionPass e) {
+
         }
     }
 
-    public void eliminar(Usuario u){
-        
+    public void eliminar(Usuario u) {
+
     }
 }

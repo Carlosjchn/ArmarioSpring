@@ -75,7 +75,9 @@ public class MenuTienda {
     }
 
     public Usuario comprarVendedor(UsuarioBD listaUsuarios) {
-        System.out.println(listaUsuarios.getVendedores());
+        for (Usuario usuario : listaUsuarios.getVendedores()) {
+            System.out.println("\t" + usuario.getNombre());
+        }
         System.out.println("Escribe el nombre del usuario que quieres ver: ");
         String vendedor = sc.next();
         Usuario usuarioVendedor = listaUsuarios.buscarNombre(vendedor);

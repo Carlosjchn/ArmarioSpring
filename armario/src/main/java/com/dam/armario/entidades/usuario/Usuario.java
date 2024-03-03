@@ -3,6 +3,7 @@ package com.dam.armario.entidades.usuario;
 import java.util.ArrayList;
 
 import com.dam.armario.entidades.ropa.*;
+import com.dam.armario.excepciones.ExcepcionPass;
 import com.dam.armario.entidades.outfits.*;
 
 public class Usuario {
@@ -150,5 +151,13 @@ public class Usuario {
         }
     }
 
+    public boolean checkPass(String contraseña) throws ExcepcionPass{
+        if(contraseña.equalsIgnoreCase(contraseña)){
+            return true;
+        }else{
+            throw new ExcepcionPass();
+        }
+
+    }
     
 }
