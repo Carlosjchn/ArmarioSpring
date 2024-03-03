@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ArmarioApplication<armario>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.dam.armario.ArmarioApplication",
+            "projectName": "armario",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
