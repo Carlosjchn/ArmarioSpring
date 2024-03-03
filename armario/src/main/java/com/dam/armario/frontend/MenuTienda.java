@@ -6,7 +6,6 @@ import com.dam.armario.entidades.ropa.Ropa;
 import com.dam.armario.entidades.usuario.Usuario;
 import com.dam.armario.excepciones.CompraPrendaExcepcion;
 import com.dam.armario.excepciones.NombreExcepcion;
-import com.dam.armario.excepciones.SaldoExcepcion;
 import com.dam.armario.repositorio.UsuarioBD;
 import com.dam.armario.servicios.ServicioRopa;
 
