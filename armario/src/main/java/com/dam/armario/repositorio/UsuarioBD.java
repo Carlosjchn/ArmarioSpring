@@ -2,8 +2,10 @@ package com.dam.armario.repositorio;
 
 import java.util.ArrayList;
 
+import com.dam.armario.entidades.ropa.Ropa;
 import com.dam.armario.entidades.usuario.*;
 import com.dam.armario.excepciones.LoginExcepcion;
+import com.dam.armario.excepciones.NombreExcepcion;
 import com.dam.armario.excepciones.SaldoExcepcion;
 
 // ENVIAR LA BASE DE DATOS A CADA CONTROLADOR PARA QUE SE ACTUALIZE.
@@ -31,13 +33,13 @@ public class UsuarioBD {
         throw new LoginExcepcion();
     }
 
-    public Usuario buscarNombre(String nombre) {
+    public Usuario buscarNombre(String nombre) throws NombreExcepcion{
         for (Usuario u : usuarioBD) {
             if (nombre.equalsIgnoreCase(u.getNombre())) {
                 return u;
             }
         }
-        return null;
+        throw new NombreExcepcion();
     }
 
     public void setFalse() {
@@ -80,20 +82,29 @@ public class UsuarioBD {
         return vendedores;
     }
 
-    public boolean comprarPrenda(Usuario vendedor, int numPrenda) throws SaldoExcepcion {
+    public void comprarPrenda(Usuario vendedor, Ropa Prenda) throws SaldoExcepcion {
         Usuario comprador = buscarSesion();
         try {
-            if (comprador.getSaldo() - vendedor.getRopaBD().get(numPrenda).getPrecio() >= 0) {
-                comprador.setSaldo(comprador.getSaldo() - vendedor.getRopaBD().get(numPrenda - 1).getPrecio());
-                comprador.altaRopa(vendedor.getRopaBD().get(numPrenda - 1));
-                vendedor.setSaldo(vendedor.getSaldo() + vendedor.getRopaBD().get(numPrenda - 1).getPrecio());
-                vendedor.removePrenda(numPrenda - 1);
-                return true;
+            if (comprador.getSaldo() - Prenda.getPrecio() >= 0) {
+                comprador.setSaldo(comprador.getSaldo() - Prenda.getPrecio());
+                comprador.altaRopa(Prenda);
+                vendedor.setSaldo(vendedor.getSaldo() + Prenda.getPrecio());
+                vendedor.removePrenda(Prenda);
+                updateUsuario(comprador);
+                updateUsuario(vendedor);
             } else {
-                return false;
+                throw new SaldoExcepcion(); 
             }
         } catch (Exception e) {
-            return false;
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void updateUsuario(Usuario u){
+        for(int i = 0; i < usuarioBD.size(); i++){
+            if(usuarioBD.get(i).getNombre().equals(u.getNombre())){
+                usuarioBD.set(i, u);
+            }
         }
     }
 

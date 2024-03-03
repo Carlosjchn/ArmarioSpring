@@ -5,6 +5,7 @@ import java.util.*;
 import com.dam.armario.entidades.ropa.Ropa;
 import com.dam.armario.entidades.usuario.Usuario;
 import com.dam.armario.excepciones.CompraPrendaExcepcion;
+import com.dam.armario.excepciones.NombreExcepcion;
 import com.dam.armario.excepciones.SaldoExcepcion;
 import com.dam.armario.repositorio.UsuarioBD;
 import com.dam.armario.servicios.ServicioRopa;
@@ -62,46 +63,41 @@ public class MenuTienda {
 
     public void mostrarPrendasVenta(Usuario u) {
         System.out.println("Las prendas a la venta: ");
-        if (u == null) {
-            System.out.println("Error");
-        } else {
-            for (Ropa prendaVenta : u.getRopaBD()) {
-                if (prendaVenta.getPrecio() != 0) {
-                    int i = 1;
-                    System.out.println(i++ + ". " + prendaVenta + " " + prendaVenta.getPrecio() + " euros");
-                }
+        for (Ropa prendaVenta : u.getRopaBD()) {
+            if (prendaVenta.getPrecio() != 0) {
+                System.out.println(
+                        u.getIndex(prendaVenta) + 1 + ". " + prendaVenta + " " + prendaVenta.getPrecio() + " euros");
             }
         }
+
     }
 
     public Usuario comprarVendedor(UsuarioBD listaUsuarios) {
-        for (Usuario usuario : listaUsuarios.getVendedores()) {
-            System.out.println("\t" + usuario.getNombre());
-        }
-        System.out.println("Escribe el nombre del usuario que quieres ver: ");
-        String vendedor = sc.next();
-        Usuario usuarioVendedor = listaUsuarios.buscarNombre(vendedor);
-        if (listaUsuarios.buscarNombre(vendedor) != null) {
+        try {
+            for (Usuario usuario : listaUsuarios.getVendedores()) {
+                System.out.println("\t" + usuario.getNombre());
+            }
+            System.out.println("Escribe el nombre del usuario que quieres ver: ");
+            String vendedor = sc.next();
+            Usuario usuarioVendedor = listaUsuarios.buscarNombre(vendedor);
             return usuarioVendedor;
-        } else {
+        } catch (NombreExcepcion e) {
+            System.out.println(e.getMessage());
             return null;
         }
     }
 
-    public int comprarPrenda (Usuario usuarioVendedor) throws CompraPrendaExcepcion {
+    public Ropa comprarPrenda(Usuario usuarioVendedor) throws CompraPrendaExcepcion {
         try {
             mostrarPrendasVenta(usuarioVendedor);
             System.out.println("Elige la prenda que quieras comprar");
             int numeroPrenda = sc.nextInt();
-            return numeroPrenda;
+            Ropa prenda = usuarioVendedor.getRopaBD().get(numeroPrenda-1);
+            return prenda;
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            return 0;
+            return null;
         }
-    }
-
-    public void errorCompra() {
-        System.out.println("Saldo insuficiente.");
     }
 
     public String eliminarVenta(UsuarioBD listaUsuarios) {

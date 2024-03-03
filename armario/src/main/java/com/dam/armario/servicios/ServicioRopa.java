@@ -164,7 +164,7 @@ public class ServicioRopa implements InterfazGeneral {
     public void eliminar(Usuario u){
         mostrar(u);
         int numeroRopa = menuRopa.eliminarRopa(u);
-        u.removePrenda(numeroRopa);
+        u.removePrendaIndex(numeroRopa);
     }
 
    

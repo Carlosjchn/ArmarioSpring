@@ -77,7 +77,9 @@ public class ServicioUsuario implements InterfazGeneral {
                 default:
                     break;
             }
-
+            if (opcion.equals("1")||opcion.equals("2")||opcion.equals("3")||opcion.equals("4")){
+                menuUsuario.checkPass(u);
+            }
         } catch (ExcepcionPass e) {
 
         }

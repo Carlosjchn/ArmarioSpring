@@ -81,6 +81,10 @@ public class Usuario {
         }
     }
 
+    public int getIndex(Ropa prenda) {
+        return getRopaBD().indexOf(prenda);
+    }
+
     public void altaRopa(Ropa ropa) {
         ropaBD.add(ropa);
     }
@@ -144,13 +148,19 @@ public class Usuario {
         ropaBD.get(Integer.parseInt(numPrenda)-1).setPrecio(0);
     }
 
-    public void removePrenda(int index){
+    public void removePrenda(Ropa prenda){
+        try{
+        ropaBD.remove(prenda);
+        }catch(Exception e){
+        }
+    }
+
+    public void removePrendaIndex(int index){
         try{
         ropaBD.remove(index-1);
         }catch(Exception e){
         }
     }
-
     public boolean checkPass(String contraseña) throws ExcepcionPass{
         if(contraseña.equalsIgnoreCase(contraseña)){
             return true;
@@ -160,4 +170,5 @@ public class Usuario {
 
     }
     
+
 }
