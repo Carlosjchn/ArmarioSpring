@@ -87,8 +87,9 @@ public class UsuarioBD {
         try {
             if (comprador.getSaldo() - Prenda.getPrecio() >= 0) {
                 comprador.setSaldo(comprador.getSaldo() - Prenda.getPrecio());
-                comprador.altaRopa(Prenda);
                 vendedor.setSaldo(vendedor.getSaldo() + Prenda.getPrecio());
+                Prenda.setPrecio(0);
+                comprador.altaRopa(Prenda);
                 vendedor.removePrenda(Prenda);
                 updateUsuario(comprador);
                 updateUsuario(vendedor);
