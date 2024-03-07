@@ -16,22 +16,10 @@ public class ServicioOutfit implements InterfazGeneral {
             nuevoOutfit.addPrenda(u.getPrenda(Integer.parseInt(opcionOutfit.get(i)) - 1));
         }
         nuevoOutfit.setNombreOutfit(opcionOutfit.get(opcionOutfit.size() - 1));
-        u.altaOutfit(nuevoOutfit);
+        guardarOutfit(nuevoOutfit, listaUsuario);
     }
 
     public void mostrar(Usuario u) {
-        if (u.getOutfitsBD().isEmpty()) {
-            menuOutfit.noHayOutfit();
-        } else {
-            int iteraciones = 0;
-            for (Outfits outfit : u.getOutfitsBD()) {
-                iteraciones++;
-                menuOutfit.listaOufits(outfit, iteraciones);
-            }
-        }
-    }
-
-    public void mostrarAlaVenta(Usuario u) {
         if (u.getOutfitsBD().isEmpty()) {
             menuOutfit.noHayOutfit();
         } else {

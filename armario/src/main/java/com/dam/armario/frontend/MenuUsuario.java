@@ -84,7 +84,7 @@ public class MenuUsuario {
         String saldo = "";
         do {
             System.out.println("Introduce la cantidad a añadir:");
-            if (sc.hasNextDouble()) {
+            if (sc.hasNextDouble()||sc.hasNextInt()) {
                 Float numero = sc.nextFloat();
                 saldo = numero + "";
             } else {
