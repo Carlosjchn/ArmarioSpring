@@ -162,7 +162,7 @@ public class Usuario {
         }
     }
     public boolean checkPass(String contraseña) throws ExcepcionPass{
-        if(contraseña.equalsIgnoreCase(contraseña)){
+        if(contraseña.equalsIgnoreCase(this.password)){
             return true;
         }else{
             throw new ExcepcionPass();

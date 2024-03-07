@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.dam.armario.entidades.outfits.Outfits;
 import com.dam.armario.entidades.ropa.*;
 import com.dam.armario.entidades.usuario.Usuario;
+import com.dam.armario.excepciones.ExcepcionPass;
 import com.dam.armario.excepciones.NombreExcepcion;
 import com.dam.armario.repositorio.UsuarioBD;
 import com.dam.armario.servicios.*;
@@ -309,4 +310,32 @@ class ArmarioApplicationTests {
 		assertNotEquals(contraseñaCifrada,contraseña);
 	}
 
+	@Test
+	public void testAñadirSaldo(){
+		Usuario usuario = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
+		usuario.añadirSaldo("50");
+
+		assertEquals(150, usuario.getSaldo());
+	}
+
+	@Test
+	public void testCheckPass(){
+		Usuario usuario = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
+		try {
+			assertTrue(usuario.checkPass("contraseña123"));
+		} catch (ExcepcionPass e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testCheckPass2(){
+		Usuario usuario = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
+		try {
+			assertEquals(new ExcepcionPass(), usuario.checkPass("contraseñaIncorrecta"));
+		} catch (ExcepcionPass e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
