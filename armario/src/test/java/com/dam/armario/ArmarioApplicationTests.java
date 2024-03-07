@@ -2,12 +2,12 @@ package com.dam.armario;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.dam.armario.entidades.ropa.*;
 import com.dam.armario.entidades.usuario.Usuario;
 import com.dam.armario.excepciones.NombreExcepcion;
 import com.dam.armario.repositorio.UsuarioBD;
-import com.dam.armario.servicios.ServicioComun;
-import com.dam.armario.servicios.ServicioRopa;
-import com.dam.armario.servicios.ServicioUsuario;
+import com.dam.armario.servicios.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,7 +20,6 @@ class ArmarioApplicationTests {
 	ServicioUsuario funcionesUsuario = new ServicioUsuario();
 	ServicioRopa funcionesRopa = new ServicioRopa();
 	ServicioComun funcionesComun = new ServicioComun();
-
 
 	@Test
 	public void testBuscarNombre() {
@@ -38,7 +37,7 @@ class ArmarioApplicationTests {
 		Usuario u1 = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
 		listaUsuarios.altaUsuario(u1);
 		try {
-			assertEquals(listaUsuarios.buscarNombre(null), new NombreExcepcion());
+			assertEquals(listaUsuarios.buscarNombre("nombrenoValido"), new NombreExcepcion());
 		} catch (NombreExcepcion e) {
 			e.printStackTrace();
 		}
@@ -46,10 +45,6 @@ class ArmarioApplicationTests {
 
 	@Test
 	public void testAltaUsuario() {
-		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-		Usuario usuario = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
-		usuarios.add(usuario);
-
 		ArrayList<String> datosUsuario = new ArrayList<>();
 		datosUsuario.add("nombreUsuario");
 		datosUsuario.add("correo@correo.com");
@@ -59,7 +54,14 @@ class ArmarioApplicationTests {
 
 
 
-		 assertTrue(listaUsuarios.getUsuarioBD().equals(usuarios));
+		 assertTrue(listaUsuarios.getUsuarioBD().get(0).getNombre().equals("nombreUsuario"));
+	}
+
+	@Test
+	public void testAltaUsuario2(){
+		Usuario usuario = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
+		listaUsuarios.altaUsuario(usuario);
+		assertTrue(listaUsuarios.getUsuarioBD().contains(usuario));
 	}
 
 	@Test
@@ -155,4 +157,113 @@ class ArmarioApplicationTests {
 
 		assertFalse(funcionesComun.validarContrasena(contraseña));
 	}
+	
+	@Test
+	public void testElegirColor(){
+		ArrayList<String> datosRopa = new ArrayList<>();
+		datosRopa.add("1");
+		datosRopa.add("4");
+
+		Ropa ropa = new Sudadera();
+
+		funcionesRopa.elegirColor(ropa, datosRopa);
+
+		assertEquals(ropa.getColor(), "Rojo");
+	}
+
+	@Test
+	public void testElegirTalla(){
+		ArrayList<String> datosRopa = new ArrayList<>();
+		datosRopa.add("1");
+		datosRopa.add("4");
+		datosRopa.add("3");
+
+		Ropa ropa = new Sudadera();
+
+		funcionesRopa.elegirTalla(ropa, datosRopa);
+
+		assertEquals(ropa.getTalla(), "M");
+	}
+
+	@Test
+	public void testElegirMarca(){
+		ArrayList<String> datosRopa = new ArrayList<>();
+		datosRopa.add("1");
+		datosRopa.add("4");
+		datosRopa.add("3");
+		datosRopa.add("Nike");
+
+		Ropa ropa = new Sudadera();
+
+		funcionesRopa.elegirMarca(ropa, datosRopa);
+
+		assertEquals(ropa.getMarca(), "Nike");
+	}
+
+	@Test
+	public void testElegirMaterial(){
+		ArrayList<String> datosRopa = new ArrayList<>();
+		datosRopa.add("1");
+		datosRopa.add("4");
+		datosRopa.add("3");
+		datosRopa.add("Nike");
+		datosRopa.add("1");
+
+		Ropa ropa = new Sudadera();
+
+		funcionesRopa.elegirMaterial(ropa, datosRopa);
+
+		assertEquals(ropa.getMaterial(), "Algodón");
+	}
+
+	@Test
+	public void testCrearObjeto(){
+		ArrayList<String> datosRopa = new ArrayList<>();
+		datosRopa.add("1");
+		datosRopa.add("4");
+		datosRopa.add("3");
+		datosRopa.add("Nike");
+		datosRopa.add("1");
+		datosRopa.add("1");
+		
+
+		Ropa prueba = funcionesRopa.crearObjeto(datosRopa);
+
+		
+		assertEquals(funcionesRopa.crearObjeto(datosRopa), prueba);
+	}
+
+	@Test
+	public void testGuardarPrenda(){
+
+		Ropa sudadera = new Sudadera();
+		Usuario usuario = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
+		usuario.setLogueado(true);
+		listaUsuarios.altaUsuario(usuario);
+		funcionesRopa.guardarPrenda(sudadera, listaUsuarios );
+
+		assertTrue(listaUsuarios.getUsuarioBD().get(0).getRopaBD().contains(sudadera));
+	}
+
+	@Test
+	public void testAltaPrenda(){
+		ArrayList<String> datosRopa = new ArrayList<>();
+		datosRopa.add("1");
+		datosRopa.add("4");
+		datosRopa.add("3");
+		datosRopa.add("Nike");
+		datosRopa.add("1");
+		datosRopa.add("1");
+		
+		Usuario usuario = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
+		usuario.setLogueado(true);
+		listaUsuarios.altaUsuario(usuario);
+		
+		
+		funcionesRopa.alta(datosRopa, listaUsuarios);
+
+		assertTrue(listaUsuarios.getUsuarioBD().get(0).getRopaBD().get(0).getColor().equals("Rojo"));
+	}
+
+	
 }

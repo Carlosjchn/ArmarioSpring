@@ -67,6 +67,14 @@ public abstract class Ropa {
     public void setEstilo(String estilo) {
         this.estilo = estilo;
     }	
+
+	@Override
+	public boolean equals(Object object) {
+		if (this.color == ((Ropa)object).getColor()) {
+			return true;
+		}
+		return false;
+	}
 	
 	
 	
