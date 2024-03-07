@@ -264,7 +264,6 @@ class ArmarioApplicationTests {
 
 	@Test
 	public void testGuardarOutfit() {
-
 		Ropa sudadera = new Sudadera();
 		Usuario usuario = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
 		usuario.setLogueado(true);
@@ -338,4 +337,74 @@ class ArmarioApplicationTests {
 		}
 	}
 	
+	@Test
+	public void testVenderPrenda(){
+		Ropa sudadera = new Sudadera();
+		Usuario usuario = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
+		usuario.setLogueado(true);
+		listaUsuarios.altaUsuario(usuario);
+		funcionesRopa.guardarPrenda(sudadera, listaUsuarios);
+
+		usuario.venderPrenda("1", 25.5);
+
+		assertEquals(25.5, usuario.getRopaBD().get(0).getPrecio());
+	}
+
+	@Test
+	public void testRetirarPrenda(){
+		Ropa sudadera = new Sudadera();
+		Usuario usuario = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
+		usuario.setLogueado(true);
+		listaUsuarios.altaUsuario(usuario);
+		funcionesRopa.guardarPrenda(sudadera, listaUsuarios);
+		usuario.venderPrenda("1", 25.5);
+
+		usuario.retirarPrenda("1");
+
+		assertEquals(0, usuario.getRopaBD().get(0).getPrecio());
+	}
+
+	@Test
+    public void testRemovePrenda(){
+		Ropa sudadera = new Sudadera();
+		Usuario usuario = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
+		usuario.setLogueado(true);
+		listaUsuarios.altaUsuario(usuario);
+		funcionesRopa.guardarPrenda(sudadera, listaUsuarios);
+
+		usuario.removePrenda(sudadera);
+
+		assertEquals(0, usuario.getOutfitsBD().size());
+	}
+
+	@Test
+	public void testRemovePrendaindex(){
+		Ropa sudadera = new Sudadera();
+		Usuario usuario = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
+		usuario.setLogueado(true);
+		listaUsuarios.altaUsuario(usuario);
+		funcionesRopa.guardarPrenda(sudadera, listaUsuarios);
+
+		usuario.removePrendaIndex(1);
+
+		assertEquals(0, usuario.getOutfitsBD().size());
+	}
+
+	@Test
+	public void testRemoveOutfit(){
+		ArrayList<String> opcionOutfit = new ArrayList<>();
+		opcionOutfit.add("1");
+		opcionOutfit.add("Outfit1");
+
+		Ropa sudadera = new Sudadera();
+		Usuario usuario = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
+		usuario.setLogueado(true);
+		listaUsuarios.altaUsuario(usuario);
+		funcionesRopa.guardarPrenda(sudadera, listaUsuarios);
+		funcionOutfit.alta(opcionOutfit, listaUsuarios);
+
+		usuario.removeOutfit(1);
+
+		assertEquals(0, usuario.getOutfitsBD().size());
+	}
 }
