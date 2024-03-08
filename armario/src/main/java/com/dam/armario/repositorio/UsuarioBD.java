@@ -67,9 +67,7 @@ public class UsuarioBD {
     }
 
     public void cerrarSesion() {
-        for (Usuario u : usuarioBD) {
-            u.setLogueado(false);
-        }
+            buscarSesion().setLogueado(false);
     }
 
     public ArrayList<Usuario> getVendedores() {
@@ -88,9 +86,9 @@ public class UsuarioBD {
             if (comprador.getSaldo() - Prenda.getPrecio() >= 0) {
                 comprador.setSaldo(comprador.getSaldo() - Prenda.getPrecio());
                 vendedor.setSaldo(vendedor.getSaldo() + Prenda.getPrecio());
+                vendedor.removePrenda(Prenda);
                 Prenda.setPrecio(0);
                 comprador.altaRopa(Prenda);
-                vendedor.removePrenda(Prenda);
                 updateUsuario(comprador);
                 updateUsuario(vendedor);
             } else {

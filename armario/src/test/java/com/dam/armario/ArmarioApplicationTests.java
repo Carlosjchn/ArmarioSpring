@@ -8,6 +8,7 @@ import com.dam.armario.entidades.ropa.*;
 import com.dam.armario.entidades.usuario.Usuario;
 import com.dam.armario.excepciones.ExcepcionPass;
 import com.dam.armario.excepciones.NombreExcepcion;
+import com.dam.armario.excepciones.SaldoExcepcion;
 import com.dam.armario.repositorio.UsuarioBD;
 import com.dam.armario.servicios.*;
 
@@ -23,6 +24,7 @@ class ArmarioApplicationTests {
 	ServicioRopa funcionesRopa = new ServicioRopa();
 	ServicioComun funcionesComun = new ServicioComun();
 	ServicioOutfit funcionOutfit = new ServicioOutfit();
+	ServicioTienda funcionesTienda = new ServicioTienda();
 
 	@Test
 	public void testBuscarNombre() {
@@ -351,6 +353,18 @@ class ArmarioApplicationTests {
 	}
 
 	@Test
+	public void testVenderPrenda2(){
+		Ropa sudadera = new Sudadera();
+		Usuario usuario = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
+		usuario.setLogueado(true);
+		listaUsuarios.altaUsuario(usuario);
+		funcionesRopa.guardarPrenda(sudadera, listaUsuarios);
+
+		funcionesTienda.venderPrenda(usuario, "1", 30.5);
+
+		assertEquals(30.5, usuario.getRopaBD().get(0).getPrecio());
+	}
+	@Test
 	public void testRetirarPrenda(){
 		Ropa sudadera = new Sudadera();
 		Usuario usuario = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
@@ -407,4 +421,91 @@ class ArmarioApplicationTests {
 
 		assertEquals(0, usuario.getOutfitsBD().size());
 	}
+
+	@Test
+	public void testBuscarSesion(){
+		Usuario usuario = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
+		usuario.setLogueado(true);
+		listaUsuarios.altaUsuario(usuario);
+
+		assertEquals(listaUsuarios.buscarSesion(), listaUsuarios.getUsuarioBD().get(0));
+	}
+
+	@Test
+	public void testCerrarSesion(){
+		Usuario usuario = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
+        usuario.setLogueado(true);
+        listaUsuarios.altaUsuario(usuario);
+
+		listaUsuarios.cerrarSesion();
+
+		assertFalse(listaUsuarios.getUsuarioBD().get(0).isLogueado());
+	}
+
+	@Test
+	public void testSetFalse(){
+		Usuario usuario = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
+        usuario.setLogueado(true);
+        listaUsuarios.altaUsuario(usuario);
+		Usuario usuario2 = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
+        listaUsuarios.altaUsuario(usuario2);
+
+		listaUsuarios.setFalse();
+
+		assertFalse(listaUsuarios.getUsuarioBD().get(0).isLogueado());
+		assertFalse(listaUsuarios.getUsuarioBD().get(1).isLogueado());
+	}
+
+	@Test
+	public void testGetVendedores(){
+		Usuario usuario = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
+        usuario.setLogueado(true);
+        listaUsuarios.altaUsuario(usuario);
+        Usuario usuario2 = new Usuario("nombreUsuario", "correo@correo.com", "contraseña123", "recuperar1");
+        listaUsuarios.altaUsuario(usuario2);
+
+		assertEquals(listaUsuarios.getVendedores().get(0), usuario2);
+	}
+
+	@Test
+	public void testComprarPrenda() throws SaldoExcepcion{
+		Usuario vendedor = new Usuario("vendedor", "correo@correo.com", "contraseña123", "recuperar1");
+		Usuario comprador = new Usuario("comprador", "correo@correo.com", "contraseña123", "recuperar1");
+		listaUsuarios.altaUsuario(vendedor);
+		listaUsuarios.altaUsuario(comprador);
+		comprador.setLogueado(true);
+		Ropa sudadera = new Sudadera();
+		sudadera.setPrecio(30);
+        vendedor.altaRopa(sudadera);
+
+    
+        listaUsuarios.comprarPrenda(vendedor, sudadera);
+    
+    
+        assertEquals(70.0, comprador.getSaldo());
+        assertEquals(130.0, vendedor.getSaldo());
+        assertEquals(0,vendedor.getRopaBD().size());
+        assertEquals(1,comprador.getRopaBD().size());
+	}
+
+    @Test
+    void comprarPrendaSinSaldoSuficiente() {
+        Usuario vendedor = new Usuario("vendedor", "correo@correo.com", "contraseña123", "recuperar1");
+		Usuario comprador = new Usuario("comprador", "correo@correo.com", "contraseña123", "recuperar1");
+		listaUsuarios.altaUsuario(vendedor);
+		listaUsuarios.altaUsuario(comprador);
+		comprador.setLogueado(true);
+		comprador.setSaldo(25);
+		Ropa sudadera = new Sudadera();
+		sudadera.setPrecio(30);
+        vendedor.altaRopa(sudadera);
+
+		
+		assertEquals(25.0, comprador.getSaldo());
+        assertEquals(100.0, vendedor.getSaldo());
+        assertEquals(1,vendedor.getRopaBD().size());
+        assertEquals(0,comprador.getRopaBD().size());
+    }
+
+	
 }
