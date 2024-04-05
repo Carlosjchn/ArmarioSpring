@@ -2,6 +2,7 @@ package com.dam.armario.controladores;
 
 import com.dam.armario.servicios.*;
 
+import java.io.*;
 import java.util.*;
 import com.dam.armario.entidades.usuario.*;
 import com.dam.armario.frontend.*;
@@ -23,6 +24,8 @@ public class ControladorMain {
     ServicioTienda funcionesTienda = new ServicioTienda();
 
     public void inicio() {
+        File datosUsuarios = new File(Constantes.rutaUsuarios);
+       listaUsuarios.inicializadorDatos(datosUsuarios);
         boolean inicio = true;
         while (inicio == true) {
             do {

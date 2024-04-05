@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "prueba",
+            "request": "launch",
+            "mainClass": "com.dam.armario.repositorio.prueba",
+            "projectName": "armario"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-ArmarioApplication<armario>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

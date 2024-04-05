@@ -5,6 +5,9 @@ import com.dam.armario.entidades.usuario.Usuario;
 import com.dam.armario.repositorio.*;
 import com.dam.armario.servicios.interfaz.InterfazGeneral;
 import com.dam.armario.frontend.*;
+
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class ServicioRopa implements InterfazGeneral {
@@ -18,6 +21,7 @@ public class ServicioRopa implements InterfazGeneral {
             elegirMarca(nuevaPrenda, opcionPrenda);
             elegirMaterial(nuevaPrenda, opcionPrenda);
             guardarPrenda(nuevaPrenda, listaUsuarios);
+            escribirRopaUsers(opcionPrenda, listaUsuarios);
         }
     }
 
@@ -148,6 +152,10 @@ public class ServicioRopa implements InterfazGeneral {
         listaUsuario.buscarSesion().altaRopa(prenda);
     }
 
+    public void guardarEnUsuario(Ropa prenda, Usuario usuario) {
+        usuario.altaRopa(prenda);
+    }
+
     public void mostrar(Usuario u) {
         if (u.getRopaBD().isEmpty()) {
             menuRopa.noHayPrendas();
@@ -167,5 +175,26 @@ public class ServicioRopa implements InterfazGeneral {
         u.removePrendaIndex(numeroRopa);
     }
 
+    public void actualizarRopas(ArrayList<String> opcionPrenda, Usuario Usuario) {
+        if (Integer.parseInt(opcionPrenda.get(0)) < 8) {
+            Ropa nuevaPrenda = crearObjeto(opcionPrenda);
+            elegirColor(nuevaPrenda, opcionPrenda);
+            elegirTalla(nuevaPrenda, opcionPrenda);
+            elegirMarca(nuevaPrenda, opcionPrenda);
+            elegirMaterial(nuevaPrenda, opcionPrenda);
+            guardarEnUsuario(nuevaPrenda, Usuario);
+        }
+    }
    
+    public void escribirRopaUsers(ArrayList<String> datos, UsuarioBD listaUsuario){
+        String rutaRopa = "armario\\src\\main\\java\\com\\dam\\armario\\repositorio\\docs\\" + listaUsuario.buscarSesion().getNombre() + "\\ropa.txt";
+        try (FileWriter escritor = new FileWriter(rutaRopa, true)) {
+            for (String dato : datos) {
+                escritor.write(dato + ";");
+            }
+            escritor.write("\n");
+        } catch (IOException e) {
+            System.err.println("Error al escribir en el archivo: " + e.getMessage());
+        }
+    }
 }

@@ -7,6 +7,9 @@ import com.dam.armario.frontend.MenuUsuario;
 import com.dam.armario.repositorio.UsuarioBD;
 import com.dam.armario.servicios.interfaz.InterfazGeneral;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class ServicioUsuario implements InterfazGeneral {
@@ -14,6 +17,8 @@ public class ServicioUsuario implements InterfazGeneral {
 
     public void alta(ArrayList<String> datos, UsuarioBD listaUsers) {
         Usuario usuario = new Usuario(datos.get(0), datos.get(1), datos.get(2), datos.get(3));
+        escribirDatosUsers(datos);
+        generarCarpetaUser(datos);
         listaUsers.altaUsuario(usuario);
     }
 
@@ -87,5 +92,47 @@ public class ServicioUsuario implements InterfazGeneral {
 
     public void eliminar(Usuario u) {
 
+    }
+
+    public void generarCarpetaUser(ArrayList<String> datos){
+        String rutaCarpeta = "armario\\src\\main\\java\\com\\dam\\armario\\repositorio\\docs\\" + datos.get(0);
+        
+        File carpeta = new File(rutaCarpeta);
+        if (!carpeta.exists()) {
+            boolean creacionExitosa = carpeta.mkdirs();
+            if (creacionExitosa) {
+                File ropaUser = new File(rutaCarpeta + "\\ropa.txt");
+                File configOutfits = new File(rutaCarpeta + "\\configOutfits.txt");
+                try {
+                    ropaUser.createNewFile();
+                    configOutfits.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("No se pudo crear la carpeta.");
+            }
+        } else {
+            System.out.println("La carpeta ya existe.");
+        }
+    }
+
+    public void escribirDatosUsers(ArrayList<String> datos){
+        try (FileWriter escritor = new FileWriter(Constantes.rutaUsuarios, true)) {
+            for (String dato : datos) {
+                escritor.write(dato + ";");
+            }
+            escritor.write("\n");
+        } catch (IOException e) {
+            System.err.println("Error al escribir en el archivo: " + e.getMessage());
+        }
+    }
+
+    public static String limpiarCorreo(String correo) {
+        int indiceArroba = correo.indexOf('@');
+        if (indiceArroba != -1) { 
+            return correo.substring(0, indiceArroba);
+        }
+        return correo;
     }
 }
