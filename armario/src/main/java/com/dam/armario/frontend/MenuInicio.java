@@ -4,10 +4,12 @@ import java.util.*;
 
 import com.dam.armario.entidades.usuario.Usuario;
 import com.dam.armario.servicios.ServicioComun;
+import com.dam.armario.servicios.ServiciosLogs;
 
 public class MenuInicio {
     Scanner sc = new Scanner(System.in);
     ServicioComun funcionComun = new ServicioComun();
+    ServiciosLogs Logger = new ServiciosLogs();
 
     public String registro() {
         try {
@@ -21,6 +23,7 @@ public class MenuInicio {
 
             return opcion;
         } catch (Exception e) {
+            Logger.logError(e.getMessage());
             System.out.println("Error al seleccionar opcion");
             return null;
         }
@@ -79,6 +82,7 @@ public class MenuInicio {
 
     public void errorRecuperar() {
         System.out.println("Respuesta incorrecta.");
+        Logger.logError("Error recuperar contraseña.");
     }
 
     public void loginCorrecto() {

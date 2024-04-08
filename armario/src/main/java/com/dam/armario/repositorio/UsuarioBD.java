@@ -16,6 +16,7 @@ public class UsuarioBD {
     ServicioRopa funcionesRopa = new ServicioRopa();
     ServicioOutfit funcionesOutfit = new ServicioOutfit();
     ServicioTienda funcionesTienda = new ServicioTienda();
+    ServiciosLogs Logger = new ServiciosLogs();
 
     public ArrayList<Usuario> getUsuarioBD() {
         return usuarioBD;
@@ -96,7 +97,10 @@ public class UsuarioBD {
                 comprador.altaRopa(Prenda);
                 updateUsuario(comprador);
                 updateUsuario(vendedor);
+                moverLinea(vendedor.getNombre()+"\\ropa.txt" ,comprador.getNombre()+"ropa.txt ", vendedor.getRopaBD().indexOf(Prenda));
+                Logger.logInfo("Se ha realizado una compra con éxito entre "+comprador.getNombre()+" y "+vendedor.getNombre());
             } else {
+                Logger.logInfo(comprador.getNombre() + "No tiene suficiente saldo.");  
                 throw new SaldoExcepcion();
             }
         } catch (Exception e) {
@@ -104,6 +108,8 @@ public class UsuarioBD {
         }
     }
 
+
+    
     public void updateUsuario(Usuario u) {
         for (int i = 0; i < usuarioBD.size(); i++) {
             if (usuarioBD.get(i).getNombre().equals(u.getNombre())) {
@@ -117,27 +123,25 @@ public class UsuarioBD {
 
         try {
             FileReader fr = new FileReader(usuarios);
-            try (BufferedReader lector = new BufferedReader(fr)) {
+            BufferedReader lector = new BufferedReader(fr);
                 String linea;
-                while ((linea = lector.readLine()) != null) {
+                while ((linea = lector.readLine()) != null ) {
                     String[] datosUsuario = linea.split(";");
                     Usuario usuario = new Usuario(datosUsuario[0], datosUsuario[1], datosUsuario[2], datosUsuario[3]);
-                    usuario = actualizarUsuario(datosUsuario[0], usuario);
+                    usuario = actualizarUsuario(usuario);
                     altaUsuario(usuario);
                 }
-            } catch (IOException e) {
-                System.err.println("Error al leer el archivo: " + e.getMessage());
-            }
-        } catch (FileNotFoundException e) {
+            lector.close();
+        } catch (Exception e) {
+            Logger.logError("Problema inicializando los datos guardados.");
+            System.err.println("Error al leer el archivo: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    public Usuario actualizarUsuario(String nombreUsuario, Usuario usuario) {
-        String ropaPath = "armario\\src\\main\\java\\com\\dam\\armario\\repositorio\\docs\\"
-                + nombreUsuario + "\\ropa.txt";
-        String outfitPath = "armario\\src\\main\\java\\com\\dam\\armario\\repositorio\\docs\\" + nombreUsuario
-                + "\\configOutfits.txt";
+    public Usuario actualizarUsuario(Usuario usuario) {
+        String ropaPath = Constantes.rutaDocs + usuario.getNombre() + "\\ropa.txt";
+        String outfitPath = Constantes.rutaDocs + usuario.getNombre() + "\\configOutfits.txt";
 
         File Ropas = new File(ropaPath);
         File Outfits = new File(outfitPath);
@@ -155,6 +159,7 @@ public class UsuarioBD {
                         funcionesRopa.actualizarRopas(confPrenda, usuario);
                     }
                 } catch (IOException e) {
+                    Logger.logError("Problema leyendo ropa del archivo.");
                     System.err.println("Error al leer el archivo: " + e.getMessage());
                 }
 
@@ -166,6 +171,7 @@ public class UsuarioBD {
                         funcionesOutfit.actualizarOutfits(confOutfit, usuario);
                     }
                 } catch (IOException e) {
+                    Logger.logError("Problema leyendo outfits del archivo.");
                     System.err.println("Error al leer el archivo: " + e.getMessage());
                 }
                 return usuario;
@@ -182,5 +188,26 @@ public class UsuarioBD {
             arrayList.add(elemento);
         }
         return arrayList;
+    }
+
+    public static void moverLinea(String sourceFile, String destinationFile, int lineToRemove) throws IOException {
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(Constantes.rutaDocs + sourceFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(Constantes.rutaDocs + destinationFile, true))) {
+           
+            int lineNumber = 0;
+            String line;
+            
+            while ((line = reader.readLine()) != null) {
+                lineNumber++;
+                if (lineNumber != lineToRemove) {
+                    writer.write(line);
+                    writer.newLine();
+                } else {
+                    writer.write(line);
+                    writer.newLine();
+                }
+            }
+        }
     }
 }

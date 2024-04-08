@@ -14,7 +14,7 @@ import java.util.*;
 
 public class ServicioUsuario implements InterfazGeneral {
     MenuUsuario menuUsuario = new MenuUsuario();
-
+    ServiciosLogs Logger = new ServiciosLogs();
     public void alta(ArrayList<String> datos, UsuarioBD listaUsers) {
         Usuario usuario = new Usuario(datos.get(0), datos.get(1), datos.get(2), datos.get(3));
         escribirDatosUsers(datos);
@@ -95,7 +95,7 @@ public class ServicioUsuario implements InterfazGeneral {
     }
 
     public void generarCarpetaUser(ArrayList<String> datos){
-        String rutaCarpeta = "armario\\src\\main\\java\\com\\dam\\armario\\repositorio\\docs\\" + datos.get(0);
+        String rutaCarpeta = Constantes.rutaDocs + datos.get(0);
         
         File carpeta = new File(rutaCarpeta);
         if (!carpeta.exists()) {
@@ -118,12 +118,13 @@ public class ServicioUsuario implements InterfazGeneral {
     }
 
     public void escribirDatosUsers(ArrayList<String> datos){
-        try (FileWriter escritor = new FileWriter(Constantes.rutaUsuarios, true)) {
+        try (FileWriter escritor = new FileWriter(Constantes.rutaDocs + "Usuarios.txt", true)) {
             for (String dato : datos) {
                 escritor.write(dato + ";");
             }
             escritor.write("\n");
         } catch (IOException e) {
+            Logger.logError(e.getMessage());
             System.err.println("Error al escribir en el archivo: " + e.getMessage());
         }
     }

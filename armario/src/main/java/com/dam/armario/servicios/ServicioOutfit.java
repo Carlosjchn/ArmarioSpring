@@ -10,7 +10,7 @@ import com.dam.armario.servicios.interfaz.InterfazGeneral;
 
 public class ServicioOutfit implements InterfazGeneral {
     MenuOutfit menuOutfit = new MenuOutfit();
-
+    ServiciosLogs Logger = new ServiciosLogs();
     public void alta(ArrayList<String> confOutfit, UsuarioBD listaUsuario) {
         Outfits nuevoOutfit = new Outfits();
         Usuario u = listaUsuario.buscarSesion();
@@ -39,6 +39,7 @@ public class ServicioOutfit implements InterfazGeneral {
         if (index >= 1 && index <= u.getOutfitsBD().size()) {
             menuOutfit.imprimirOutfit(u.getOutfitsBD().get(index - 1));
         } else {
+            Logger.logError("Error al imprimir outfit");
             menuOutfit.errorOutfit();
         }
     }
@@ -66,13 +67,14 @@ public class ServicioOutfit implements InterfazGeneral {
     }
 
     public void escribirDatosUsers(ArrayList<String> datos, UsuarioBD listaUsuario){
-        String rutaRopa = "armario\\src\\main\\java\\com\\dam\\armario\\repositorio\\docs\\" + listaUsuario.buscarSesion().getNombre() + "\\configOutfits.txt";
+        String rutaRopa = Constantes.rutaDocs + listaUsuario.buscarSesion().getNombre() + "\\configOutfits.txt";
         try (FileWriter escritor = new FileWriter(rutaRopa, true)) {
             for (String dato : datos) {
                 escritor.write(dato + ";");
             }
             escritor.write("\n");
         } catch (IOException e) {
+            Logger.logError(e.getMessage());
             System.err.println("Error al escribir en el archivo: " + e.getMessage());
         }
     }

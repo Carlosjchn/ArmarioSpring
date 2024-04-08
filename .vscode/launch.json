@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ServiciosLogs",
+            "request": "launch",
+            "mainClass": "com.dam.armario.servicios.ServiciosLogs",
+            "projectName": "armario"
+        },
+        {
+            "type": "java",
             "name": "prueba",
             "request": "launch",
             "mainClass": "com.dam.armario.repositorio.prueba",

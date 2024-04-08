@@ -10,9 +10,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+
+
 public class ServicioRopa implements InterfazGeneral {
     MenuRopa menuRopa = new MenuRopa();
-
+    ServiciosLogs Logger = new ServiciosLogs();
     public void alta(ArrayList<String> opcionPrenda, UsuarioBD listaUsuarios) {
         if (Integer.parseInt(opcionPrenda.get(0)) < 8) {
             Ropa nuevaPrenda = crearObjeto(opcionPrenda);
@@ -187,13 +189,14 @@ public class ServicioRopa implements InterfazGeneral {
     }
    
     public void escribirRopaUsers(ArrayList<String> datos, UsuarioBD listaUsuario){
-        String rutaRopa = "armario\\src\\main\\java\\com\\dam\\armario\\repositorio\\docs\\" + listaUsuario.buscarSesion().getNombre() + "\\ropa.txt";
+        String rutaRopa = Constantes.rutaDocs + listaUsuario.buscarSesion().getNombre() + "\\ropa.txt";
         try (FileWriter escritor = new FileWriter(rutaRopa, true)) {
             for (String dato : datos) {
                 escritor.write(dato + ";");
             }
             escritor.write("\n");
         } catch (IOException e) {
+            Logger.logError(e.getMessage());
             System.err.println("Error al escribir en el archivo: " + e.getMessage());
         }
     }
