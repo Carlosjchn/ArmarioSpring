@@ -1,6 +1,7 @@
 package com.dam.armario.frontend;
 
 import java.util.*;
+import java.util.Map.Entry;
 
 import com.dam.armario.entidades.outfits.Outfits;
 import com.dam.armario.entidades.ropa.Ropa;
@@ -84,5 +85,18 @@ public class MenuOutfit {
             }
        
         return opcion;
+    }
+
+    public void mostrarOutfits(Map<String, List<Outfits>> mapa){
+        for (Entry<String, List<Outfits>> entry: mapa.entrySet()) {
+			System.out.println(entry.getKey() + ":");
+			for (Outfits outfit: entry.getValue()) {
+            int iteraciones = 0;
+            for (Ropa prenda : outfit.getNuevoOutfit()) {
+                iteraciones++;
+                System.out.println("\t" + iteraciones + " - " + prenda);
+        }
+			}
+		}
     }
 }

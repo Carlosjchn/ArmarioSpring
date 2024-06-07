@@ -7,19 +7,21 @@ import com.dam.armario.frontend.MenuUsuario;
 import com.dam.armario.repositorio.UsuarioBD;
 import com.dam.armario.servicios.interfaz.InterfazGeneral;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import java.io.*;
+import java.sql.*;
 import java.util.*;
 
 public class ServicioUsuario implements InterfazGeneral {
     MenuUsuario menuUsuario = new MenuUsuario();
     ServiciosLogs Logger = new ServiciosLogs();
+   
     public void alta(ArrayList<String> datos, UsuarioBD listaUsers) {
         Usuario usuario = new Usuario(datos.get(0), datos.get(1), datos.get(2), datos.get(3));
-        escribirDatosUsers(datos);
-        generarCarpetaUser(datos);
+        // escribirDatosUsers(datos);
+        // generarCarpetaUser(datos);
         listaUsers.altaUsuario(usuario);
+        insertarDatosUser(datos);
     }
 
     public void eliminarUsuario(UsuarioBD listaUsers, String[] datos) {
@@ -65,9 +67,11 @@ public class ServicioUsuario implements InterfazGeneral {
         mostrar(u);
         String opcion = menuUsuario.modificarPerfil(u);
         try {
+            String cambio = menuUsuario.datosModificar(opcion);
+            u.modificarPerfilBBDD(u, opcion, cambio);
             switch (opcion) {
                 case "1": // Cambiar nombre de usuario
-                    
+
                     u.setNombre(menuUsuario.datosModificar(opcion));
                     break;
                 case "2": // Cambiar email
@@ -82,7 +86,7 @@ public class ServicioUsuario implements InterfazGeneral {
                 default:
                     break;
             }
-            if (opcion.equals("1")||opcion.equals("2")||opcion.equals("3")||opcion.equals("4")){
+            if (opcion.equals("1") || opcion.equals("2") || opcion.equals("3") || opcion.equals("4")) {
                 menuUsuario.checkPass(u);
             }
         } catch (ExcepcionPass e) {
@@ -90,13 +94,14 @@ public class ServicioUsuario implements InterfazGeneral {
         }
     }
 
+    
     public void eliminar(Usuario u) {
 
     }
 
-    public void generarCarpetaUser(ArrayList<String> datos){
+    public void generarCarpetaUser(ArrayList<String> datos) {
         String rutaCarpeta = Constantes.rutaDocs + datos.get(0);
-        
+
         File carpeta = new File(rutaCarpeta);
         if (!carpeta.exists()) {
             boolean creacionExitosa = carpeta.mkdirs();
@@ -117,7 +122,7 @@ public class ServicioUsuario implements InterfazGeneral {
         }
     }
 
-    public void escribirDatosUsers(ArrayList<String> datos){
+    public void escribirDatosUsers(ArrayList<String> datos) {
         try (FileWriter escritor = new FileWriter(Constantes.rutaDocs + "Usuarios.txt", true)) {
             for (String dato : datos) {
                 escritor.write(dato + ";");
@@ -129,9 +134,40 @@ public class ServicioUsuario implements InterfazGeneral {
         }
     }
 
+    public void insertarDatosUser(ArrayList<String> datos) {
+        try {
+
+            // PASO 1: CONECTARSE
+            Class.forName("org.mariadb.jdbc.Driver");
+            Connection conexion = DriverManager.getConnection(
+                    Constantes.BBDDurl, Constantes.BBDDUser, Constantes.BBDDPass);
+
+            // PASO 2: PREPARA LA SQL
+            String sql = "INSERT INTO usuarios(nombre, correo, contrasena, seguridad, saldo) VALUES(?, ?, ?, ?, ?)";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setString(1, datos.get(0));
+            ps.setString(2, datos.get(1));
+            ps.setString(3, datos.get(2));
+            ps.setString(4, datos.get(3));
+            ps.setDouble(5, 100);
+
+            // PASO 3: EJECUTA LA SQL
+            ps.executeUpdate();
+
+            // PASO 4: DESCONECTARSE
+
+            ps.close();
+            conexion.close();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
     public static String limpiarCorreo(String correo) {
         int indiceArroba = correo.indexOf('@');
-        if (indiceArroba != -1) { 
+        if (indiceArroba != -1) {
             return correo.substring(0, indiceArroba);
         }
         return correo;

@@ -1,6 +1,7 @@
 package com.dam.armario.entidades.ropa;
 
 public abstract class Ropa {
+	protected int ID;
 	protected String color;
 	protected String talla;
 	protected String marca;
@@ -74,6 +75,12 @@ public abstract class Ropa {
 			return true;
 		}
 		return false;
+	}
+	public int getID() {
+		return ID;
+	}
+	public void setID(int iD) {
+		ID = iD;
 	}
 	
 	

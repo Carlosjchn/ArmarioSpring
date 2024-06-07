@@ -8,7 +8,7 @@ public class MenuPrincipal {
     public String principal() {
         try{
         System.out.println("Menú Principal");
-        System.out.println("\t 1. Ropa \n\t 2. Outfits \n\t 3. Tienda \n\t 4. Perfil \n\t 5. Cerrar sesion.");
+        System.out.println("\t 1. Ropa \n\t 2. Outfits \n\t 3. Perfil \n\t 4. Cerrar sesion.");
         String opcion;
         
             System.out.println("Elige una opcion: \t");

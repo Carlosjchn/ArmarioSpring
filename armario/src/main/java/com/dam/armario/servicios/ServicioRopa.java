@@ -8,6 +8,9 @@ import com.dam.armario.frontend.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.*;
 
 
@@ -23,7 +26,7 @@ public class ServicioRopa implements InterfazGeneral {
             elegirMarca(nuevaPrenda, opcionPrenda);
             elegirMaterial(nuevaPrenda, opcionPrenda);
             guardarPrenda(nuevaPrenda, listaUsuarios);
-            escribirRopaUsers(opcionPrenda, listaUsuarios);
+            insertarRopaUsers(opcionPrenda, listaUsuarios);
         }
     }
 
@@ -174,6 +177,7 @@ public class ServicioRopa implements InterfazGeneral {
     public void eliminar(Usuario u){
         mostrar(u);
         int numeroRopa = menuRopa.eliminarRopa(u);
+        eliminarRopaUser(numeroRopa);
         u.removePrendaIndex(numeroRopa);
     }
 
@@ -198,6 +202,62 @@ public class ServicioRopa implements InterfazGeneral {
         } catch (IOException e) {
             Logger.logError(e.getMessage());
             System.err.println("Error al escribir en el archivo: " + e.getMessage());
+        }
+    }
+
+    public void insertarRopaUsers(ArrayList<String> datos, UsuarioBD listaUsuario){
+        try {
+
+            // PASO 1: CONECTARSE
+            Class.forName("org.mariadb.jdbc.Driver");
+            Connection conexion = DriverManager.getConnection(
+                    Constantes.BBDDurl, Constantes.BBDDUser, Constantes.BBDDPass);
+
+            // PASO 2: PREPARA LA SQL
+            String sql = "INSERT INTO ropa(configPrenda, usuario_id) VALUES(?, ?)";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            String dato = "";
+            for(String palabra : datos){
+                dato = dato + palabra + ";";
+            }
+            ps.setString(1, dato);
+            ps.setInt(2, listaUsuario.getUserID());
+
+            // PASO 3: EJECUTA LA SQL
+            ps.executeUpdate();
+
+            // PASO 4: DESCONECTARSE
+
+            ps.close();
+            conexion.close();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void eliminarRopaUser(int Id_ropa){
+        try {
+
+            // PASO 1: CONECTARSE
+            Class.forName("org.mariadb.jdbc.Driver");
+            Connection conexion = DriverManager.getConnection(
+                    Constantes.BBDDurl, Constantes.BBDDUser, Constantes.BBDDPass);
+
+            // PASO 2: PREPARA LA SQL
+            String sql = "REMOVE * FROM ropa WHERE id = " + Id_ropa;
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            
+            // PASO 3: EJECUTA LA SQL
+            ps.executeUpdate();
+
+            // PASO 4: DESCONECTARSE
+
+            ps.close();
+            conexion.close();
+
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 }

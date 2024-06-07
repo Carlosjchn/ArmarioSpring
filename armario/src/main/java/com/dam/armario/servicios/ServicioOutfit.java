@@ -1,8 +1,16 @@
 package com.dam.armario.servicios;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.dam.armario.entidades.outfits.Outfits;
+import com.dam.armario.entidades.ropa.Ropa;
 import com.dam.armario.entidades.usuario.Usuario;
 import com.dam.armario.frontend.*;
 import com.dam.armario.repositorio.*;
@@ -19,18 +27,27 @@ public class ServicioOutfit implements InterfazGeneral {
         }
         nuevoOutfit.setNombreOutfit(confOutfit.get(confOutfit.size() - 1));
         guardarOutfit(nuevoOutfit, listaUsuario);
-        escribirDatosUsers(confOutfit, listaUsuario);
+        insertarOutfitsBBDD(confOutfit, listaUsuario, confOutfit.get(confOutfit.size() - 1));
     }
+
+    public static Map<String, List<Outfits>> agruparOutfitsPorNombre(List<Outfits> listaOutfits) {
+        Map<String, List<Outfits>> mapa = new HashMap<>();
+        for (Outfits outfit : listaOutfits) {
+            String nombre = outfit.getNombreOutfit();  
+            if (!mapa.containsKey(nombre)) {
+                mapa.put(nombre, new ArrayList<>());
+            }
+            mapa.get(nombre).add(outfit);
+        }
+        return mapa;
+    }
+
 
     public void mostrar(Usuario u) {
         if (u.getOutfitsBD().isEmpty()) {
             menuOutfit.noHayOutfit();
         } else {
-            int iteraciones = 0;
-            for (Outfits outfit : u.getOutfitsBD()) {
-                iteraciones++;
-                menuOutfit.listaOufits(outfit, iteraciones);
-            }
+            menuOutfit.mostrarOutfits(agruparOutfitsPorNombre(u.getOutfitsBD()));
         }
     }
 
@@ -55,6 +72,7 @@ public class ServicioOutfit implements InterfazGeneral {
         mostrar(u);
         int numeroOutfit = menuOutfit.eliminarOutfit(u);
         u.removeOutfit(numeroOutfit);
+        eliminarOutfitUser(numeroOutfit);
     }
 
     public void actualizarOutfits(ArrayList<String> confOutfit, Usuario usuario){
@@ -79,4 +97,60 @@ public class ServicioOutfit implements InterfazGeneral {
         }
     }
 
+        public void insertarOutfitsBBDD(ArrayList<String> datos, UsuarioBD listaUsuario, String nombre){
+        try {
+
+            // PASO 1: CONECTARSE
+            Class.forName("org.mariadb.jdbc.Driver");
+            Connection conexion = DriverManager.getConnection(
+                    Constantes.BBDDurl, Constantes.BBDDUser, Constantes.BBDDPass);
+
+            // PASO 2: PREPARA LA SQL
+            String sql = "INSERT INTO outfits(nombre, configOutfit, usuario_id) VALUES(?, ?, ?)";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            String dato = "";
+            for(String palabra : datos){
+                dato = dato + palabra + ";";
+            }
+            ps.setString(1, nombre);
+            ps.setString(2, dato);
+            ps.setInt(3, listaUsuario.getUserID());
+
+            // PASO 3: EJECUTA LA SQL
+            ps.executeUpdate();
+
+            // PASO 4: DESCONECTARSE
+
+            ps.close();
+            conexion.close();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void eliminarOutfitUser(int Id_outfit){
+        try {
+
+            // PASO 1: CONECTARSE
+            Class.forName("org.mariadb.jdbc.Driver");
+            Connection conexion = DriverManager.getConnection(
+                    Constantes.BBDDurl, Constantes.BBDDUser, Constantes.BBDDPass);
+
+            // PASO 2: PREPARA LA SQL
+            String sql = "REMOVE * FROM outfits WHERE id = " + Id_outfit;
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            
+            // PASO 3: EJECUTA LA SQL
+            ps.executeUpdate();
+
+            // PASO 4: DESCONECTARSE
+
+            ps.close();
+            conexion.close();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 }

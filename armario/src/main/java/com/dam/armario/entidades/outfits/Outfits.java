@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.dam.armario.entidades.ropa.*;
 
 public class Outfits{
+    public int Id;
     private String nombreOutfit;
     private ArrayList<Ropa> NuevoOutfit = new ArrayList<Ropa>();
     
@@ -45,6 +46,14 @@ public class Outfits{
     @Override
     public String toString() {
         return "Outfits [" +  NuevoOutfit + "]";
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
     }
     
 

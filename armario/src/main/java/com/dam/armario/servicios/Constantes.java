@@ -6,4 +6,7 @@ public class Constantes {
     public static final String rutaDocs = "armario\\src\\main\\java\\com\\dam\\armario\\repositorio\\docs\\";
     public static final String rutaInfo = "armario\\src\\main\\java\\com\\dam\\armario\\repositorio\\logs\\registro.log";
     public static final String rutaError = "armario\\src\\main\\java\\com\\dam\\armario\\repositorio\\logs\\errores.log";
+    public static final String BBDDUser = "root";
+    public static final String BBDDPass = "12345";
+    public static final String BBDDurl = "jdbc:mariadb://localhost:1440/armario";
 }

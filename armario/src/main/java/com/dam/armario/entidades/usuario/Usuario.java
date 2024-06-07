@@ -1,12 +1,17 @@
 package com.dam.armario.entidades.usuario;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 import com.dam.armario.entidades.ropa.*;
 import com.dam.armario.excepciones.ExcepcionPass;
+import com.dam.armario.servicios.Constantes;
 import com.dam.armario.entidades.outfits.*;
 
 public class Usuario {
+    private int id;
     private String nombre;
     private String email;
     private String password;
@@ -170,5 +175,72 @@ public class Usuario {
 
     }
     
+    public int getOutfitID(int index){
+        return outfitsBD.get(index-1).getId();
+    }
+
+    public int getRopaID(int index){
+        return ropaBD.get(index-1).getID();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }  
+    
+    public void modificarPerfilBBDD(Usuario u, String opcion, String cambio){
+        try {
+
+            // PASO 1: CONECTARSE
+            Class.forName("org.mariadb.jdbc.Driver");
+            Connection conexion = DriverManager.getConnection(
+                    Constantes.BBDDurl, Constantes.BBDDUser, Constantes.BBDDPass);
+
+            // PASO 2: PREPARA LA SQL
+            String sql = "UPDATE usuarios SET ? = ? WHERE id =" + u.getId();
+            PreparedStatement ps = conexion.prepareStatement(sql);
+      
+            switch (opcion) {
+                case "1": // Cambiar nombre de usuario
+                ps.setString(1, "nombre");
+                setNombre(cambio);
+                ps.setString(2, cambio);
+                    break;
+                case "2": // Cambiar email
+                ps.setString(1, "email");
+                setEmail(cambio);
+                ps.setString(2, cambio);
+                    break;
+                case "3": // Cambiar contraseña
+                ps.setString(1, "email");
+                setPassword(cambio);
+                ps.setString(2, cambio);
+                    break;
+                case "4": // Añadir saldo
+                ps.setString(1, "saldo");
+                añadirSaldo(cambio);
+                ps.setDouble(2, Double.parseDouble(cambio));
+                    break;
+                default:
+                    break;
+            }
+  
+
+            // PASO 3: EJECUTA LA SQL  
+            ps.executeUpdate();
+
+            // PASO 4: DESCONECTARSE
+
+            ps.close();
+            conexion.close();
+
+            
+        } catch (Exception e) {
+
+        }
+    }
 
 }
