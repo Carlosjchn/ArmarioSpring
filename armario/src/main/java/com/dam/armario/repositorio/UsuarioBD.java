@@ -178,7 +178,7 @@ public class UsuarioBD {
 			while (rs.next()) {
                 String[] configPrenda = rs.getString("configPrenda").split(";");
                 ArrayList<String> confPrenda = arrayToList(configPrenda);
-                funcionesRopa.actualizarRopas(confPrenda, usuario);
+                funcionesRopa.actualizarRopas(confPrenda, usuario, rs.getInt("id"));
             }
             
             sql = "SELECT * FROM outfits WHERE  usuario_id = " + usuario.getId();
@@ -187,7 +187,7 @@ public class UsuarioBD {
             while (rs.next()) {
             String[] configOutfit = rs.getString("configOutfit").split(";");
             ArrayList<String> confOutfit = arrayToList(configOutfit);
-            funcionesOutfit.actualizarOutfits(confOutfit, usuario);
+            funcionesOutfit.actualizarOutfits(confOutfit, usuario, rs.getInt("id"));
             }
             // PASO 4: DESCONECTARSE
             rs.close();
@@ -201,68 +201,68 @@ public class UsuarioBD {
     }
 
 
-    public void inicializadorDatos(File usuarios) {
+    // public void inicializadorDatos(File usuarios) {
 
-        try {
-            FileReader fr = new FileReader(usuarios);
-            BufferedReader lector = new BufferedReader(fr);
-            String linea;
-            while ((linea = lector.readLine()) != null) {
-                String[] datosUsuario = linea.split(";");
-                Usuario usuario = new Usuario(datosUsuario[0], datosUsuario[1], datosUsuario[2], datosUsuario[3]);
-                usuario = actualizarUsuario(usuario);
-                altaUsuario(usuario);
-            }
-            lector.close();
-        } catch (Exception e) {
-            Logger.logError("Problema inicializando los datos guardados.");
-            System.err.println("Error al leer el archivo: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
+    //     try {
+    //         FileReader fr = new FileReader(usuarios);
+    //         BufferedReader lector = new BufferedReader(fr);
+    //         String linea;
+    //         while ((linea = lector.readLine()) != null) {
+    //             String[] datosUsuario = linea.split(";");
+    //             Usuario usuario = new Usuario(datosUsuario[0], datosUsuario[1], datosUsuario[2], datosUsuario[3]);
+    //             usuario = actualizarUsuario(usuario);
+    //             altaUsuario(usuario);
+    //         }
+    //         lector.close();
+    //     } catch (Exception e) {
+    //         Logger.logError("Problema inicializando los datos guardados.");
+    //         System.err.println("Error al leer el archivo: " + e.getMessage());
+    //         e.printStackTrace();
+    //     }
+    // }
 
-    public Usuario actualizarUsuario(Usuario usuario) {
-        String ropaPath = Constantes.rutaDocs + usuario.getNombre() + "\\ropa.txt";
-        String outfitPath = Constantes.rutaDocs + usuario.getNombre() + "\\configOutfits.txt";
+    // public Usuario actualizarUsuario(Usuario usuario) {
+    //     String ropaPath = Constantes.rutaDocs + usuario.getNombre() + "\\ropa.txt";
+    //     String outfitPath = Constantes.rutaDocs + usuario.getNombre() + "\\configOutfits.txt";
 
-        File Ropas = new File(ropaPath);
-        File Outfits = new File(outfitPath);
-        try {
-            FileReader frRopa = new FileReader(Ropas);
-            FileReader frOutfit = new FileReader(Outfits);
+    //     File Ropas = new File(ropaPath);
+    //     File Outfits = new File(outfitPath);
+    //     try {
+    //         FileReader frRopa = new FileReader(Ropas);
+    //         FileReader frOutfit = new FileReader(Outfits);
 
-            if (Ropas.exists() && Outfits.exists()) {
+    //         if (Ropas.exists() && Outfits.exists()) {
 
-                try (BufferedReader lector1 = new BufferedReader(frRopa)) {
-                    String lineaPrenda;
-                    while ((lineaPrenda = lector1.readLine()) != null) {
-                        String[] configPrenda = lineaPrenda.split(";");
-                        ArrayList<String> confPrenda = arrayToList(configPrenda);
-                        funcionesRopa.actualizarRopas(confPrenda, usuario);
-                    }
-                } catch (IOException e) {
-                    Logger.logError("Problema leyendo ropa del archivo.");
-                    System.err.println("Error al leer el archivo: " + e.getMessage());
-                }
+    //             try (BufferedReader lector1 = new BufferedReader(frRopa)) {
+    //                 String lineaPrenda;
+    //                 while ((lineaPrenda = lector1.readLine()) != null) {
+    //                     String[] configPrenda = lineaPrenda.split(";");
+    //                     ArrayList<String> confPrenda = arrayToList(configPrenda);
+    //                     funcionesRopa.actualizarRopas(confPrenda, usuario);
+    //                 }
+    //             } catch (IOException e) {
+    //                 Logger.logError("Problema leyendo ropa del archivo.");
+    //                 System.err.println("Error al leer el archivo: " + e.getMessage());
+    //             }
 
-                try (BufferedReader lector2 = new BufferedReader(frOutfit)) {
-                    String lineaOutfit;
-                    while ((lineaOutfit = lector2.readLine()) != null) {
-                        String[] configOutfit = lineaOutfit.split(";");
-                        ArrayList<String> confOutfit = arrayToList(configOutfit);
-                        funcionesOutfit.actualizarOutfits(confOutfit, usuario);
-                    }
-                } catch (IOException e) {
-                    Logger.logError("Problema leyendo outfits del archivo.");
-                    System.err.println("Error al leer el archivo: " + e.getMessage());
-                }
-                return usuario;
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return usuario;
-    }
+    //             try (BufferedReader lector2 = new BufferedReader(frOutfit)) {
+    //                 String lineaOutfit;
+    //                 while ((lineaOutfit = lector2.readLine()) != null) {
+    //                     String[] configOutfit = lineaOutfit.split(";");
+    //                     ArrayList<String> confOutfit = arrayToList(configOutfit);
+    //                     funcionesOutfit.actualizarOutfits(confOutfit, usuario);
+    //                 }
+    //             } catch (IOException e) {
+    //                 Logger.logError("Problema leyendo outfits del archivo.");
+    //                 System.err.println("Error al leer el archivo: " + e.getMessage());
+    //             }
+    //             return usuario;
+    //         }
+    //     } catch (FileNotFoundException e) {
+    //         e.printStackTrace();
+    //     }
+    //     return usuario;
+    // }
 
     public static ArrayList<String> arrayToList(String[] array) {
         ArrayList<String> arrayList = new ArrayList<>();

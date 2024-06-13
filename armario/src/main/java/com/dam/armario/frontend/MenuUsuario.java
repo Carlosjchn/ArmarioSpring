@@ -34,6 +34,7 @@ public class MenuUsuario {
         switch (opcion) {
             case "1":
                 dato = modificarNombre();
+                break;
             case "2":
                 dato = modificarEmail();
                 break;

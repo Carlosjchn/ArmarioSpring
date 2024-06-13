@@ -3,6 +3,7 @@ package com.dam.armario.entidades.usuario;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.dam.armario.entidades.ropa.*;
@@ -190,57 +191,63 @@ public class Usuario {
     public void setId(int id) {
         this.id = id;
     }  
-    
-    public void modificarPerfilBBDD(Usuario u, String opcion, String cambio){
-        try {
+     
+    public void modificarPerfilBBDD(Usuario u, String opcion, String cambio) {
+    Connection conexion = null;
+    PreparedStatement ps = null;
 
-            // PASO 1: CONECTARSE
-            Class.forName("org.mariadb.jdbc.Driver");
-            Connection conexion = DriverManager.getConnection(
-                    Constantes.BBDDurl, Constantes.BBDDUser, Constantes.BBDDPass);
+    try {
+        // PASO 1: CONECTARSE
+        Class.forName("org.mariadb.jdbc.Driver");
+        conexion = DriverManager.getConnection(Constantes.BBDDurl, Constantes.BBDDUser, Constantes.BBDDPass);
 
-            // PASO 2: PREPARA LA SQL
-            String sql = "UPDATE usuarios SET ? = ? WHERE id =" + u.getId();
-            PreparedStatement ps = conexion.prepareStatement(sql);
-      
-            switch (opcion) {
-                case "1": // Cambiar nombre de usuario
-                ps.setString(1, "nombre");
+        String columna = "";
+        switch (opcion) {
+            case "1": // Cambiar nombre de usuario
+                columna = "nombre";
                 setNombre(cambio);
-                ps.setString(2, cambio);
-                    break;
-                case "2": // Cambiar email
-                ps.setString(1, "email");
+                break;
+            case "2": // Cambiar email
+                columna = "email";
                 setEmail(cambio);
-                ps.setString(2, cambio);
-                    break;
-                case "3": // Cambiar contraseña
-                ps.setString(1, "email");
+                break;
+            case "3": // Cambiar contraseña
+                columna = "contrasena";
                 setPassword(cambio);
-                ps.setString(2, cambio);
-                    break;
-                case "4": // Añadir saldo
-                ps.setString(1, "saldo");
+                break;
+            case "4": // Añadir saldo
+                columna = "saldo";
                 añadirSaldo(cambio);
-                ps.setDouble(2, Double.parseDouble(cambio));
-                    break;
-                default:
-                    break;
-            }
-  
+                break;
+            default:
+                System.err.println("Opción no válida.");
+                return;
+        }
 
-            // PASO 3: EJECUTA LA SQL  
-            ps.executeUpdate();
+        String sql = "UPDATE usuarios SET " + columna + " = ? WHERE id = ?";
+        ps = conexion.prepareStatement(sql);
 
-            // PASO 4: DESCONECTARSE
+        if (columna.equals("saldo")) {
+            ps.setDouble(1, Double.parseDouble(cambio));
+        } else {
+            ps.setString(1, cambio);
+        }
+        ps.setInt(2, u.getId());
 
-            ps.close();
-            conexion.close();
+        ps.executeUpdate();
 
-            
-        } catch (Exception e) {
 
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        // PASO 4: DESCONECTARSE
+        try {
+            if (ps != null) ps.close();
+            if (conexion != null) conexion.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
+}
 
 }

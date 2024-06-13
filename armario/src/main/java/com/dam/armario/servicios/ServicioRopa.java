@@ -177,17 +177,18 @@ public class ServicioRopa implements InterfazGeneral {
     public void eliminar(Usuario u){
         mostrar(u);
         int numeroRopa = menuRopa.eliminarRopa(u);
-        eliminarRopaUser(numeroRopa);
+        eliminarRopaUser(u.getRopaID(numeroRopa));
         u.removePrendaIndex(numeroRopa);
     }
 
-    public void actualizarRopas(ArrayList<String> opcionPrenda, Usuario Usuario) {
+    public void actualizarRopas(ArrayList<String> opcionPrenda, Usuario Usuario, int ID) {
         if (Integer.parseInt(opcionPrenda.get(0)) < 8) {
             Ropa nuevaPrenda = crearObjeto(opcionPrenda);
             elegirColor(nuevaPrenda, opcionPrenda);
             elegirTalla(nuevaPrenda, opcionPrenda);
             elegirMarca(nuevaPrenda, opcionPrenda);
             elegirMaterial(nuevaPrenda, opcionPrenda);
+            nuevaPrenda.setID(ID);
             guardarEnUsuario(nuevaPrenda, Usuario);
         }
     }
@@ -245,9 +246,9 @@ public class ServicioRopa implements InterfazGeneral {
                     Constantes.BBDDurl, Constantes.BBDDUser, Constantes.BBDDPass);
 
             // PASO 2: PREPARA LA SQL
-            String sql = "REMOVE * FROM ropa WHERE id = " + Id_ropa;
+            String sql = "DELETE FROM ropa WHERE id = ?";
             PreparedStatement ps = conexion.prepareStatement(sql);
-            
+            ps.setInt(1, Id_ropa);
             // PASO 3: EJECUTA LA SQL
             ps.executeUpdate();
 

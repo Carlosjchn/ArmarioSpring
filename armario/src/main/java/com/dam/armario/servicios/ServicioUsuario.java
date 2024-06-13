@@ -68,26 +68,9 @@ public class ServicioUsuario implements InterfazGeneral {
         String opcion = menuUsuario.modificarPerfil(u);
         try {
             String cambio = menuUsuario.datosModificar(opcion);
-            u.modificarPerfilBBDD(u, opcion, cambio);
-            switch (opcion) {
-                case "1": // Cambiar nombre de usuario
-
-                    u.setNombre(menuUsuario.datosModificar(opcion));
-                    break;
-                case "2": // Cambiar email
-                    u.setEmail(menuUsuario.datosModificar(opcion));
-                    break;
-                case "3": // Cambiar contraseña
-                    u.setPassword(menuUsuario.datosModificar(opcion));
-                    break;
-                case "4": // Añadir saldo
-                    u.añadirSaldo(menuUsuario.datosModificar(opcion));
-                    break;
-                default:
-                    break;
-            }
             if (opcion.equals("1") || opcion.equals("2") || opcion.equals("3") || opcion.equals("4")) {
                 menuUsuario.checkPass(u);
+                u.modificarPerfilBBDD(u, opcion, cambio);
             }
         } catch (ExcepcionPass e) {
 

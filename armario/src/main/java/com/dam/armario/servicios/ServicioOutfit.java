@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.dam.armario.entidades.outfits.Outfits;
-import com.dam.armario.entidades.ropa.Ropa;
+
 import com.dam.armario.entidades.usuario.Usuario;
 import com.dam.armario.frontend.*;
 import com.dam.armario.repositorio.*;
@@ -71,16 +71,17 @@ public class ServicioOutfit implements InterfazGeneral {
     public void eliminar(Usuario u){
         mostrar(u);
         int numeroOutfit = menuOutfit.eliminarOutfit(u);
+        eliminarOutfitUser(u.getOutfitID(numeroOutfit));
         u.removeOutfit(numeroOutfit);
-        eliminarOutfitUser(numeroOutfit);
     }
 
-    public void actualizarOutfits(ArrayList<String> confOutfit, Usuario usuario){
+    public void actualizarOutfits(ArrayList<String> confOutfit, Usuario usuario, int id){
         Outfits nuevoOutfit = new Outfits();
         for (int i = 0; i < confOutfit.size() - 1; i++) {
             nuevoOutfit.addPrenda(usuario.getPrenda(Integer.parseInt(confOutfit.get(i)) - 1));
         }
         nuevoOutfit.setNombreOutfit(confOutfit.get(confOutfit.size() - 1));
+        nuevoOutfit.setId(id);
         guardarEnUsuario(nuevoOutfit, usuario);
     }
 
@@ -138,9 +139,9 @@ public class ServicioOutfit implements InterfazGeneral {
                     Constantes.BBDDurl, Constantes.BBDDUser, Constantes.BBDDPass);
 
             // PASO 2: PREPARA LA SQL
-            String sql = "REMOVE * FROM outfits WHERE id = " + Id_outfit;
+            String sql = "DELETE FROM outfits WHERE id = ?";
             PreparedStatement ps = conexion.prepareStatement(sql);
-            
+            ps.setInt(1, Id_outfit);
             // PASO 3: EJECUTA LA SQL
             ps.executeUpdate();
 

@@ -89,12 +89,12 @@ public class MenuOutfit {
 
     public void mostrarOutfits(Map<String, List<Outfits>> mapa){
         for (Entry<String, List<Outfits>> entry: mapa.entrySet()) {
-			System.out.println(entry.getKey() + ":");
+			int numOutfit = 1;
+            System.out.println(numOutfit++ + " - " + entry.getKey() + ":");
 			for (Outfits outfit: entry.getValue()) {
-            int iteraciones = 0;
+            int iteraciones = 1;
             for (Ropa prenda : outfit.getNuevoOutfit()) {
-                iteraciones++;
-                System.out.println("\t" + iteraciones + " - " + prenda);
+                System.out.println("\t" + iteraciones++ + " - " + prenda);
         }
 			}
 		}
